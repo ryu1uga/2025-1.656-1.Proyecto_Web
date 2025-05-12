@@ -16,3 +16,9 @@ h1
     color: white;
     font-size: 2rem;
 }
+
+#pencil
+{
+    display: inline-block;
+    transform: scaleX(-1);
+}
