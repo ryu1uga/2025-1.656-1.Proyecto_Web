@@ -20,5 +20,10 @@ h1
 
 .add
 {
-    margin-top: 5%;
+    margin: 5%;
+}
+
+input
+{
+    width: 100%;
 }

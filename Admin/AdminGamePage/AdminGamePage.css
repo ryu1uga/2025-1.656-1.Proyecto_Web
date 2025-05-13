@@ -6,7 +6,7 @@ h1
     font-size: 4rem;
 }
 
-.btn
+.botton
 {
     height: 4rem;
     margin: 1.5%;
@@ -15,4 +15,10 @@ h1
     border: none;
     color: white;
     font-size: 2rem;
+}
+
+#addGame
+{
+    width: 20%;
+    margin: 2%;
 }
