@@ -6,19 +6,30 @@ h1
     font-size: 4rem;
 }
 
-.botton
+.btn
 {
     height: 4rem;
-    margin: 1.5%;
+    width: 100%;
+    margin: 1%;
     border-radius: 30px;
-    background-color: lightblue;
     border: none;
     color: white;
     font-size: 2rem;
 }
 
+.game
+{
+    background-color: lightblue;
+}
+
+.delete
+{
+    background-color: lightcoral;
+}
+
 #addGame
 {
-    width: 20%;
+    width: 100%;
     margin: 2%;
+    background-color: deepskyblue;
 }
