@@ -1,0 +1,219 @@
+import { useNavigate, useLocation } from "react-router-dom";
+import type { juego, Comment } from '../../components/user/HomeJuego';
+import { SeccionNavbar } from "../../components/user/SeccionNavbar";
+import "./JuegoDetalle.css";
+import { useState, useEffect } from "react";
+
+const JuegoDetalle = () => {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { juego }: { juego: juego } = state || {
+    juego: {
+      nombre: "Juego no encontrado",
+      valoracion: "",
+      ventas: "N/A",
+      categoria: "N/A",
+      empresa: "N/A",
+      descripcion: "Sin descripción",
+      comentarios: [],
+      trailer: new URL("https://www.youtube.com/watch?v="),
+    },
+  };
+
+  const trailerId = juego.trailer.toString().replace("https://www.youtube.com/watch?v=", "").trim() || "";
+  const embedUrl = trailerId ? `https://www.youtube.com/embed/${trailerId}` : "https://www.youtube.com/embed/";
+
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState("");
+  const [selectedStars, setSelectedStars] = useState<number | null>(null);
+  const [imageSources, setImageSources] = useState<string[]>([]); // Almacena las rutas de las imágenes
+
+  useEffect(() => {
+    // Cargar las imágenes solo una vez al montar el componente
+    const gameNameForFolder = juego.nombre.toLowerCase().replace(/\s+/g, '');
+    const images = [1, 2, 3, 4, 5, 6].map((i) => {
+      const imagePath = `/imagenes/juegos/${gameNameForFolder}/${i}.jpg`;
+      // Preload la imagen y usa un fallback si falla
+      const img = new Image();
+      img.src = imagePath;
+      return new Promise((resolve) => {
+        img.onload = () => resolve(imagePath);
+        img.onerror = () => resolve("https://via.placeholder.com/300x200?text=Imagen+No+Disponible");
+      });
+    });
+
+    Promise.all(images).then((resolvedSources) => {
+      setImageSources(resolvedSources as string[]);
+    });
+  }, [juego.nombre]); // Se ejecuta solo si el nombre del juego cambia
+
+  const handleAddComment = () => {
+    if (newComment.trim() === "" || selectedStars === null) return;
+
+    const newCommentObj: Comment = {
+      id: comments.length + 1,
+      text: newComment,
+      likes: 0,
+      dislikes: 0,
+      rating: selectedStars * 2
+    };
+    setComments([newCommentObj, ...comments]);
+    setNewComment("");
+    setSelectedStars(null);
+  };
+
+  const handleLike = (id: number) => {
+    setComments(comments.map(comment => comment.id === id ? { ...comment, likes: comment.likes + 1 } : comment));
+  };
+
+  const handleDislike = (id: number) => {
+    setComments(comments.map(comment => comment.id === id ? { ...comment, dislikes: comment.dislikes + 1 } : comment));
+  };
+
+  const averageRating = comments.length > 0
+    ? (comments.reduce((acc, curr) => acc + (curr.rating || 0), 0) / comments.length).toFixed(1)
+    : juego.valoracion;
+
+  return (
+    <div className="background-container">
+      <SeccionNavbar />
+      <div className="container mt-4">
+        <div className="game-container">
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h1 className="h3">{juego.nombre}</h1>
+          </div>
+
+          <div className="row">
+            <div className="col-12 col-md-8 mb-3">
+              <div className="card trailer-card">
+                <div className="card-body text-center">
+                  <h5 className="card-title">Trailer de {juego.nombre}</h5>
+                  <iframe
+                    width="100%"
+                    height="400px"
+                    src={embedUrl}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={`Trailer de ${juego.nombre}`}
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-12 col-md-4 mb-3">
+              <div className="card h-100">
+                <div className="card-body">
+                  <h5 className="card-title">Detalles de juego</h5>
+                  <p className="card-text fw-bold">Descripción:</p>
+                  <p>{juego.descripcion}</p>
+                  <div className="mb-3">
+                    <p><strong>Categoría:</strong> {juego.categoria}</p>
+                    <p><strong>Ventas:</strong> {juego.ventas}</p>
+                    <p><strong>Desarrollado por:</strong></p>
+                    <p>{juego.empresa}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row align-items-stretch">
+            <div className="col-12 col-md-6 mb-3">
+              <div className="card h-100">
+                <div className="card-body text-center">
+                  <h5 className="card-title">Valoración promedio ({comments.length} usuarios)</h5>
+                  <p>{averageRating}/10.00</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 col-md-6 mb-3 d-flex align-items-stretch">
+              <button className="btn btn-primary btn-lg w-100">COMPRAR AHORA</button>
+            </div>
+          </div>
+
+          <div className="row mt-4">
+            <div className="col-12">
+              <h5 className="mb-3">Galería</h5>
+              <div className="gallery-container">
+                <div className="gallery-inner">
+                  {imageSources.map((src, index) => (
+                    <div key={index} className="gallery-item">
+                      <div className="border rounded overflow-hidden" style={{ height: "200px", width: "300px" }}>
+                        <img
+                          src={src}
+                          alt={`Imagen ${index + 1} de ${juego.nombre}`}
+                          className="img-fluid h-100 w-100"
+                          style={{ objectFit: "cover" }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-5 p-4 bg-dark text-white rounded">
+            <h4>RESEÑAS</h4>
+            <div className="row">
+              <div className="col-md-8">
+                <textarea
+                  className="form-control"
+                  rows={3}
+                  placeholder="Escribe tu comentario..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                />
+              </div>
+              <div className="col-md-4">
+                <p className="mb-1">VALORACIÓN:</p>
+                <div className="d-flex mb-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      style={{
+                        fontSize: "1.5rem",
+                        cursor: "pointer",
+                        color: selectedStars && selectedStars >= star ? "#ffc107" : "#ccc"
+                      }}
+                      onClick={() => setSelectedStars(star)}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <button
+                  className="btn btn-light"
+                  disabled={newComment.trim() === "" || selectedStars === null}
+                  onClick={handleAddComment}
+                >
+                  Publicar
+                </button>
+              </div>
+            </div>
+
+            <hr className="border-light" />
+
+            {comments.map((comment) => (
+              <div key={comment.id} className="bg-secondary text-white p-3 mb-3 rounded">
+                <p className="mb-1">{comment.text}</p>
+                <p className="mb-1">{comment.rating}/10</p>
+                <div className="d-flex gap-3">
+                  <button className="btn btn-sm btn-outline-light" onClick={() => handleLike(comment.id)}>
+                    👍 {comment.likes}
+                  </button>
+                  <button className="btn btn-sm btn-outline-light" onClick={() => handleDislike(comment.id)}>
+                    👎 {comment.dislikes}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default JuegoDetalle;

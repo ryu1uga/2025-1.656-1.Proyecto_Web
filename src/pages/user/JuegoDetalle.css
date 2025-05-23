@@ -1,0 +1,125 @@
+.background-container {
+  background-image: url('/imagenes/menu/FondoPagina.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.game-container {
+  background-color: #2a2a2a;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+
+.game-container h1,
+.game-container h3,
+.game-container h5,
+.game-container p,
+.game-container label {
+  color: #e0e0e0;
+}
+
+
+.game-container .card {
+  background-color: #3a3a3a;
+  border: none;
+}
+
+
+.game-container .trailer-card {
+  background-color: #3a3a3a;
+}
+
+
+.game-container .card-body p,
+.game-container .card-body .card-title,
+.game-container .card-body label {
+  color: #e0e0e0;
+}
+
+
+.game-container .btn-primary {
+  background-color: #6f42c1; 
+  border-color: #6f42c1;
+  text-transform: uppercase;
+}
+
+.game-container .btn-primary:hover {
+  background-color: #563d7c;
+  border-color: #563d7c;
+}
+
+
+.game-container .form-control {
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  border: 1px solid #555;
+}
+
+.game-container .form-control::placeholder {
+  color: #a0a0a0;
+}
+
+
+.game-container .row.align-items-stretch {
+  display: flex;
+  align-items: stretch;
+}
+
+.game-container .row.align-items-stretch .btn {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-container {
+  background-color: #1a1a1a;
+  padding: 10px 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.gallery-inner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px; 
+  padding: 10px;
+  overflow-x: auto; 
+  scroll-behavior: smooth; 
+}
+
+.gallery-item {
+  flex: 0 0 auto; 
+  width: 300px; 
+  height: 200px; 
+}
+
+
+.gallery-inner::-webkit-scrollbar {
+  display: none; 
+}
+
+.gallery-inner {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+
+.gallery-item img {
+  border-radius: 10px;
+}
+
+
+.game-container {
+  background-color: #2a2a2a;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.game-container h5 {
+  color: #ffffff;
+}

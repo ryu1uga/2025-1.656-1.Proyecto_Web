@@ -1,0 +1,45 @@
+#Card-s-c{
+  display: inline-block;
+  width: 140px;
+  height: 200px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+#img-juego {
+  background-color: pink;
+  height: 150px;
+}
+
+#card-body {
+  height: 100px;
+}
+
+#texto-C{
+  text-align: center;
+}
+
+#footer-c{
+  display: flex;
+  background-color: gray;
+  color: white;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+#botones-c {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 10px;
+}
+
+#confirmar-c, .cancelar-c{
+  background-color: rgba(0, 0, 0, 0.767);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
