@@ -38,7 +38,6 @@ const GameAddPage = () => {
         const juegosAnterioresStr = localStorage.getItem("games");
         const juegos: Game[] = juegosAnterioresStr ? JSON.parse(juegosAnterioresStr) : [];
 
-        // Obtener máximo id actual o 0 si no hay ninguno
         const maxId = juegos.reduce((max, juego) => (juego.id > max ? juego.id : max), 0);
 
         const nuevoJuego: Game = {
@@ -62,7 +61,7 @@ const GameAddPage = () => {
     return (
         <div className="container mt-4">
             <div className="card p-4">
-                <h1 className="text-center">Add a New Game</h1>
+                <h1 id="h1">Add a New Game</h1>
 
                 <input
                     className="form-control mb-3"
@@ -83,14 +82,19 @@ const GameAddPage = () => {
                     {photos.map((photo, index) => (
                         <div key={index} className="d-flex flex-column align-items-center">
                             <div className="photo border p-3 m-2">{photo}</div>
-                            <button className="btn btn-secondary mt-2" onClick={() => handleDeletePhoto(index)}>
+                            <button
+                                className="btn btn-secondary mt-2"
+                                onClick={() => handleDeletePhoto(index)}
+                            >
                                 Delete Photo
                             </button>
                         </div>
                     ))}
                 </div>
                 <div className="d-flex justify-content-center mb-4">
-                    <button className="btn btn-primary" onClick={handleAddPhoto}>Add Photo</button>
+                    <button id="addPhoto" className="btnGamePage" onClick={handleAddPhoto}>
+                        Add Photo
+                    </button>
                 </div>
 
                 <h4 className="text-center">Trailers</h4>
@@ -104,8 +108,13 @@ const GameAddPage = () => {
                                 onChange={(e) => handleTrailerChange(index, e.target.value)}
                             />
                             <div className="mt-2">
-                                <button className="btn btn-secondary me-2">Edit Trailer</button>
-                                <button className="btn btn-secondary" onClick={() => handleDeleteTrailer(index)}>
+                                <button className="btn btn-secondary me-2" disabled>
+                                    Edit Trailer
+                                </button>
+                                <button
+                                    className="btn btn-secondary"
+                                    onClick={() => handleDeleteTrailer(index)}
+                                >
                                     Delete Trailer
                                 </button>
                             </div>
@@ -113,13 +122,21 @@ const GameAddPage = () => {
                     ))}
                 </div>
                 <div className="d-flex justify-content-center mb-4">
-                    <button className="btn btn-primary" onClick={handleAddTrailer}>Add Trailer</button>
+                    <button id="addTrailer" className="btnGamePage" onClick={handleAddTrailer}>
+                        Add Trailer
+                    </button>
                 </div>
+
                 <div className="d-flex justify-content-center mb-2">
-                    <button className="btn btn-success" onClick={handleAddGame}>Add</button>
+                    <button id="addGame" className="btnGamePage" onClick={handleAddGame}>
+                        Add
+                    </button>
                 </div>
+
                 <div className="d-flex justify-content-center mb-2">
-                    <button className="btn btn-secondary me-2" onClick={handleDiscard}>Discard</button>
+                    <button id="discard" className="btnGamePage" onClick={handleDiscard}>
+                        Discard
+                    </button>
                 </div>
             </div>
         </div>

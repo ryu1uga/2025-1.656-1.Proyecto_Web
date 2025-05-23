@@ -23,6 +23,16 @@
     text-align: center;
 }
 
+#detail
+{
+    background-color: skyblue;
+}
+
+#edit
+{
+    background-color: blue;
+}
+
 #delete
 {
     background-color: lightcoral;

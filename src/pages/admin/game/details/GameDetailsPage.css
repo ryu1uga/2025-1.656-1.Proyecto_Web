@@ -5,16 +5,28 @@
     font-size: 4rem;
 }
 
-#addGame {
-    background-color: deepskyblue !important;
-    color: white !important;
-    border: none;
-    border-radius: 30px;
-    font-size: 2rem;
+.btnGamePage {
     height: 4rem;
     width: 100%;
-    margin: 2% 0;
-    display: block;
-    text-align: center;
-    line-height: 4rem;
+    margin: 1%;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    font-size: 2rem;
+}
+
+.btnGamePage.btn-outline-primary {
+    background-color: deepskyblue;
+}
+
+.btnGamePage.btn-outline-danger {
+    background-color: lightcoral;
+}
+
+.btnGamePage.btn-outline-success {
+    background-color: seagreen;
+}
+
+.btnGamePage.btn-outline-secondary {
+    background-color: gray;
 }

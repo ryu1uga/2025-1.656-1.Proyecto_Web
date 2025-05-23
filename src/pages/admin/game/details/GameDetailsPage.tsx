@@ -12,7 +12,7 @@ const GameDetailsPage = () => {
         return (
             <div className="container mt-4">
                 <p>No game selected to view.</p>
-                <button className="btn btn-secondary" onClick={() => navigate("/admin/game")}>
+                <button className="btn btnGamePage btn-secondary" onClick={() => navigate("/admin/game")}>
                     Back to Game List
                 </button>
             </div>
@@ -22,7 +22,7 @@ const GameDetailsPage = () => {
     return (
         <div className="container mt-4">
             <div className="card p-4">
-                <h1 className="text-center">{parsed.name}</h1>
+                <h1 id="title">{parsed.name}</h1>
 
                 <div className="mt-3">
                     <p><strong>Description:</strong></p>
@@ -61,7 +61,7 @@ const GameDetailsPage = () => {
                 </div>
 
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-secondary" onClick={() => navigate("/admin/game")}>
+                    <button className="btn btnGamePage btn-secondary" onClick={() => navigate("/admin/game")}>
                         Back to Game List
                     </button>
                 </div>

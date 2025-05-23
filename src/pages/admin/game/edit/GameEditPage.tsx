@@ -36,22 +36,10 @@ const GameEditPage = () => {
         navigate("/admin/game");
     };
 
-    const handleAddPhoto = () => {
-        setPhotos([...photos, "New Photo"]);
-    };
-
-    const handleDeletePhoto = (index: number) => {
-        setPhotos(photos.filter((_, i) => i !== index));
-    };
-
-    const handleAddTrailer = () => {
-        setTrailers([...trailers, ""]);
-    };
-
-    const handleDeleteTrailer = (index: number) => {
-        setTrailers(trailers.filter((_, i) => i !== index));
-    };
-
+    const handleAddPhoto = () => setPhotos([...photos, "New Photo"]);
+    const handleDeletePhoto = (index: number) => setPhotos(photos.filter((_, i) => i !== index));
+    const handleAddTrailer = () => setTrailers([...trailers, ""]);
+    const handleDeleteTrailer = (index: number) => setTrailers(trailers.filter((_, i) => i !== index));
     const handleTrailerChange = (index: number, value: string) => {
         const updated = [...trailers];
         updated[index] = value;
@@ -61,7 +49,7 @@ const GameEditPage = () => {
     return (
         <div className="container mt-4">
             <div className="card p-4">
-                <h1 className="text-center">Edit Game</h1>
+                <h1 id="title">Edit Game</h1>
 
                 <label htmlFor="gameName" className="form-label">Game Name</label>
                 <input
@@ -84,47 +72,54 @@ const GameEditPage = () => {
                     {photos.map((photo, index) => (
                         <div key={index} className="d-flex flex-column align-items-center">
                             <div className="photo border p-3 m-2">{photo}</div>
-                            <button className="btn btn-secondary mt-2" onClick={() => handleDeletePhoto(index)}>
+                            <button className="btn btnGamePage btn-outline-danger mt-2" onClick={() => handleDeletePhoto(index)}>
                                 Delete Photo
                             </button>
                         </div>
                     ))}
                 </div>
                 <div className="d-flex justify-content-center mb-4">
-                    <button className="btn btn-primary" onClick={handleAddPhoto}>Add Photo</button>
+                    <button className="btn btnGamePage btn-outline-primary" onClick={handleAddPhoto}>
+                        Add Photo
+                    </button>
                 </div>
 
                 <h4 className="text-center">Trailers</h4>
                 <div className="d-flex justify-content-around flex-wrap mb-3">
                     {trailers.map((trailer, index) => (
                         <div key={index} className="text-center m-2">
-                            <p>TRAILER {index + 1}</p>
+                            <p>Trailer {index + 1}</p>
                             <textarea
                                 className="form-control"
                                 value={trailer}
                                 onChange={(e) => handleTrailerChange(index, e.target.value)}
                             />
-                            <div className="mt-2">
-                                <button className="btn btn-secondary me-2" disabled>
+                            <div className="mt-2 d-flex flex-wrap justify-content-center gap-2">
+                                <button className="btn btnGamePage btn-outline-secondary" disabled>
                                     Edit Trailer
                                 </button>
-                                <button className="btn btn-secondary" onClick={() => handleDeleteTrailer(index)}>
+                                <button className="btn btnGamePage btn-outline-danger" onClick={() => handleDeleteTrailer(index)}>
                                     Delete Trailer
                                 </button>
                             </div>
                         </div>
                     ))}
                 </div>
+
                 <div className="d-flex justify-content-center mb-2">
-                    <button className="btn btn-primary" onClick={handleAddTrailer}>Add Trailer</button>
+                    <button className="btn btnGamePage btn-outline-primary" onClick={handleAddTrailer}>
+                        Add Trailer
+                    </button>
                 </div>
+
                 <div className="d-flex justify-content-center mb-2">
-                    <button className="btn btn-success" onClick={handleSave}>
+                    <button className="btn btnGamePage btn-outline-success" onClick={handleSave}>
                         Save Changes
                     </button>
                 </div>
+
                 <div className="d-flex justify-content-center mb-2">
-                    <button className="btn btn-secondary me-2" onClick={() => navigate("/admin/game")}>
+                    <button className="btn btnGamePage btn-outline-secondary" onClick={() => navigate("/admin/game")}>
                         Discard Changes
                     </button>
                 </div>

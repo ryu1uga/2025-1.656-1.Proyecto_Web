@@ -27,7 +27,7 @@ const GamePage = () => {
             <h1 id="h1" className="mb-4">Available Games</h1>
 
             <div className="d-flex justify-content-center mb-4">
-                <Link to="/admin/game/add" id="addGame" className="btn btnGamePage btn-secondary">
+                <Link to="/admin/game/add" id="addGame" className="btn btnGamePage">
                     Add Game
                 </Link>
             </div>
@@ -44,13 +44,26 @@ const GamePage = () => {
                                 </small>
                             </div>
                             <div className="d-flex flex-column align-items-end ms-3">
-                                <Link to="/admin/game/details" className="btn btnGamePage btn-outline-info mb-2" onClick={() => localStorage.setItem("selectedGame", JSON.stringify(game))}>
+                                <Link
+                                    id="detail"
+                                    to="/admin/game/details"
+                                    className="btn btnGamePage btn-outline-info mb-2"
+                                    onClick={() => localStorage.setItem("selectedGame", JSON.stringify(game))}
+                                >
                                     Details
                                 </Link>
-                                <Link to={`/admin/game/edit/${game.id}`} className="btn btnGamePage btn-outline-primary mb-2">
+                                <Link
+                                    id="edit"
+                                    to={`/admin/game/edit/${game.id}`}
+                                    className="btn btnGamePage btn-outline-primary mb-2"
+                                >
                                     Edit
                                 </Link>
-                                <button className="btn btnGamePage btn-outline-danger" onClick={() => deleteGame(game.id)}>
+                                <button
+                                    id="delete"
+                                    className="btn btnGamePage btn-outline-danger"
+                                    onClick={() => deleteGame(game.id)}
+                                >
                                     Delete
                                 </button>
                             </div>
