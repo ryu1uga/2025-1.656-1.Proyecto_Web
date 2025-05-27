@@ -30,7 +30,7 @@ const JuegoDetalle = () => {
 
   useEffect(() => {
     // Cargar las imágenes solo una vez al montar el componente
-    const gameNameForFolder = juego.nombre.toLowerCase().replace(/\s+/g, '');
+    const gameNameForFolder = juego.nombre.toLowerCase().replace(/[\s:]+/g, '');
     const images = [1, 2, 3, 4, 5, 6].map((i) => {
       const imagePath = `/imagenes/juegos/${gameNameForFolder}/${i}.jpg`;
       // Preload la imagen y usa un fallback si falla

@@ -31,7 +31,7 @@ const HomeList=({ juegos }: Propsjuegos)=> {
             "trailer": "gmA6MrX81z4" 
             },
             { 
-            "nombre": "The Witcher 3: Wild Hunt", 
+            "nombre": "The Witcher: 3 Wild Hunt", 
             "valoracion": "9.6", 
             "ventas": "50", 
             "categoria": "RPG",
