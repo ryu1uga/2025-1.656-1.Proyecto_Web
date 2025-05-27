@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 import { useEffect, useState } from "react";
 import type { juego } from "../../components/user/HomeJuego";
-import HomeNavbar from "../../components/user/HomeNavbar";
+import HomeNavbar from "../../components/user/HomeNavbar";0.
+
 import Barra from "./Filtro_Precio_etc/BarraFiltros";
 import HomeSlides from "../../components/user/HomeSlides";
 import HomeList from "../../components/user/HomeList";
@@ -146,15 +147,12 @@ const HomePage = () => {
         Restablecer={Restablecer}
       />
       <div className="container my-5">
-        <div className="main-layout">
-          <div className="filter-column">
-            <BarraFiltros />
-          </div>
+
           <div className="content-column">
             <HomeSlides />
             <HomeList juegos={juegos} />
           </div>
-        </div>
+
       </div>
     </div>
   );
