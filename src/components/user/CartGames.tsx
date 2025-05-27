@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 export interface Games { 
   id : number
   name : string
+  image : string
 }
 
 interface ListGames {
@@ -29,13 +30,15 @@ const CartGames = (props : ListGames) => {
   }
 
   return <footer id="footer-c"className="footer">
-    <div id="Card-s-c"className="card-group-style">
-      <h3>Shopping Cart</h3>
+    <h3>Shopping Cart</h3>
+    <div className="card-group-style">
       {
         cart.map((elemento: Games) => {
           return <div id="Card-s-c" className="card-style position-relative" key={elemento.id}>
             <button type="button" className="btn-close position-absolute top-0 end-0 m-1" aria-label="Close" onClick={() => removeGame(elemento.id)}></button>
-            <div id ="img-juego"className="game-img d-flex align-items-center justify-content-center">Game Portrair</div>
+            <div id ="img-juego"className="game-img d-flex align-items-center justify-content-center">
+              <img src={elemento.image} alt={elemento.name} className="img-fluid" />
+            </div>
             <p id="texto-C"className="texto">{elemento.name}</p>
           </div>
         })

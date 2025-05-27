@@ -1,5 +1,10 @@
+#form_styles {
+  padding: 40px;
+  margin: 20px;
+}
+
 .div_1 {
-  background-color: gray;
+  background-color: lightblue;
   padding: 10px 10px 10px 0;
   border-radius: 25px;
   width: 1000px;
@@ -11,36 +16,14 @@
   padding-top: 50px;
 }
 
-.div_3 {
-  display: inline-block;
-  align-items: center;
-  justify-content: center;
-}
-
-.parrafo {
-  margin-top: 50px;
-}
-
 .logo {
   width: 200px;
   height: 200px;
   border-radius: 200px;
 }
 
-.form-control {
-  width: 400px;
-}
-
-.d-grid {
-  padding-top: 10px;
-}
-
 .centrar {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.color {
-  color: white;
 }

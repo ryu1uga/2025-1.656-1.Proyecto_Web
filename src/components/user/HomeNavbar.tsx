@@ -27,7 +27,7 @@ const HomeNavbar = (props: HomeNavbarProps) => {
                                 <a className="nav-link btn btn-primary" >Catálogo</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn btn-primary" >Configuración</a>
+                                <a className="nav-link btn btn-primary" type="button" onClick={()=>navigate("/user/edit")}>Configuración</a>
                             </li>
                             <li className="nav-item">
                                 <a id="BotVentas" className="nav-link btn btn-primary" onClick={props.OrdenarVentas} type="button" >Más Vendidos</a>

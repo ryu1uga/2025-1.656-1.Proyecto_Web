@@ -8,7 +8,7 @@ const ChangePage = () => {
     console.log("Email: ", email)
   }
 
-  return <div className="centrar container mt-5">
+  return <div className="centrar container mt-4">
     <ChangeForm enviar={handleChangePage}></ChangeForm>
   </div>
 }

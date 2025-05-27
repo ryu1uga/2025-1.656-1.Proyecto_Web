@@ -83,7 +83,7 @@ const LoginForm = (props: LoginFormProps) => {
                     </div>
                     <div className="col-12 mx-auto form-container mb-3">
                         <span>Forgot your password? </span>
-                        <Link to={"../reset"}>Click here</Link>
+                        <Link to={"../user/reset"}>Click here</Link>
                     </div>
                     <div className="col-12 mx-auto form-container mb-3">
                         <span>You're not our member yet? </span>
