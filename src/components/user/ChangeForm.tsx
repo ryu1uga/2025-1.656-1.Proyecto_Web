@@ -54,23 +54,23 @@ const ChangeForm = (props: ChangeFormProps) => {
 
   return <div className="div_1 row">
     <div className="div_2 text-center col">
-      <img className="logo" src="..." />
+      <img className="logo" src="/imagenes/perfil/perfil.jpg" />
     </div>
     <div className="div_3 col">
-      <form>
-        <p className="parrafo color">Edit your profile information</p>
+      <form id="form_styles">
+        <p>Edit your profile information</p>
         <div className="mb-3">
-          <label className="form-label color">First Name</label>
+          <label className="form-label">First Name</label>
           <input type="text" className="form-control" onChange={firstNameOnChange}/>
           <div className="form-text text-danger">{firstNameError}</div>
         </div>
         <div className="mb-3">
-          <label className="form-label color">Last Name</label>
+          <label className="form-label">Last Name</label>
           <input type="text" className="form-control" onChange={lastNameOnChange}/>
           <div className="form-text text-danger">{lastNameError}</div>
         </div>
         <div className="mb-3">
-          <label className="form-label color">E-mail</label>
+          <label className="form-label">E-mail</label>
           <input type="email" className="form-control" onChange={emailOnChange}/>
           <div className="form-text text-danger">{emailError}</div>
         </div>
@@ -78,7 +78,7 @@ const ChangeForm = (props: ChangeFormProps) => {
     </div>
     <button type="button" className="btn-close" aria-label="Close"></button>
     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button className="btn btn-dark" type="button" onClick={() => { 
+      <button className="btn btn-primary" type="button" onClick={() => { 
         if(validateForm()){
           props.enviar(firstName, lastName, email)
         }

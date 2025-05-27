@@ -3,9 +3,10 @@ import "./HomePage.css";
 import { useState } from "react";
 import type { juego } from "../../components/user/HomeJuego";
 import HomeNavbar from "../../components/user/HomeNavbar";
-import BarraFiltros from "./Filtro_Precio_etc/BarraFiltros";
+import Barra from "./Filtro_Precio_etc/BarraFiltros";
 import HomeSlides from "../../components/user/HomeSlides";
 import HomeList from "../../components/user/HomeList";
+import BarraFiltros from "./Filtro_Precio_etc/BarraFiltros";
 
 const HomePage = () => {
   const ListaJ = localStorage.getItem("listaPrueba");

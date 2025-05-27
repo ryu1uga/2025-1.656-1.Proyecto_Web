@@ -12,7 +12,7 @@ const HomeNavbar = (props: HomeNavbarProps) => {
     const navigate = useNavigate ();
     return (<nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/user/home">LP Store</a>
+                    <a className="navbar-brand" href="">LP Store</a>
                     
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span className="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@ const HomeNavbar = (props: HomeNavbarProps) => {
                                 <a className="nav-link btn btn-primary" >Catálogo</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn btn-primary" >Configuración</a>
+                                <a className="nav-link btn btn-primary" type="button" onClick={()=>navigate("/user/edit")}>Configuración</a>
                             </li>
                             <li className="nav-item">
                                 <a id="BotVentas" className="nav-link btn btn-primary" onClick={props.OrdenarVentas} type="button" >Más Vendidos</a>
@@ -48,7 +48,7 @@ const HomeNavbar = (props: HomeNavbarProps) => {
                             aria-label="Buscar"
                             />
                             <button className="btn btn-outline-light" type="submit">
-                            <i className="fas fa-search"></i>
+                                <i className="fas fa-search"></i>
                             </button>
                         </div>
                         <a  className="btn btn-outline-light" type="button" onClick={()=>navigate("/user/carrito")}>
