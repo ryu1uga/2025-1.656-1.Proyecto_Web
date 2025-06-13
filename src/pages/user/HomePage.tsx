@@ -1,3 +1,4 @@
+import { API_URL } from "../../main"
 import "./HomePage.css"
 import { useEffect, useState } from "react"
 import type { juego } from "../../components/user/HomeJuego"
@@ -5,14 +6,12 @@ import HomeNavbar from "../../components/user/HomeNavbar"
 import HomeSlides from "../../components/user/HomeSlides"
 import HomeList from "../../components/user/HomeList"
 
-const URL = "http://localhost:5000"
-
 const HomePage = () => {
   
   const [juegos, setjuegos] = useState<juego[]>([])
 
   const ObtenerJuegos = async () => {
-    const response = await fetch(`${URL}/games`)
+    const response = await fetch(`${API_URL}/games`)
     const data = await response.json()
 
     if (Array.isArray(data.data)) {
