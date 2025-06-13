@@ -9,7 +9,7 @@ const JuegoDetalle = () => {
   const { state } = useLocation();
   const { juego }: { juego: juego } = state || {
     juego: {
-      nombre: "Juego no encontrado",
+      name: "Juego no encontrado",
       valoracion: "",
       ventas: "N/A",
       categoria: "N/A",
@@ -20,7 +20,7 @@ const JuegoDetalle = () => {
     },
   };
 
-  const trailerId = juego.trailer.toString().replace("https://www.youtube.com/watch?v=", "").trim() || "";
+  const trailerId = juego.trailer ? juego.trailer.toString().replace("https://www.youtube.com/watch?v=", "").trim() : ""
   const embedUrl = trailerId ? `https://www.youtube.com/embed/${trailerId}` : "https://www.youtube.com/embed/";
 
   const [comments, setComments] = useState<Comment[]>([]);
@@ -30,7 +30,7 @@ const JuegoDetalle = () => {
 
   useEffect(() => {
     // Cargar las imágenes solo una vez al montar el componente
-    const gameNameForFolder = juego.nombre.toLowerCase().replace(/[\s:]+/g, '');
+    const gameNameForFolder = juego.name.toLowerCase().replace(/[\s:]+/g, '');
     const images = [1, 2, 3, 4, 5, 6].map((i) => {
       const imagePath = `/imagenes/juegos/${gameNameForFolder}/${i}.jpg`;
       // Preload la imagen y usa un fallback si falla
@@ -45,7 +45,7 @@ const JuegoDetalle = () => {
     Promise.all(images).then((resolvedSources) => {
       setImageSources(resolvedSources as string[]);
     });
-  }, [juego.nombre]); // Se ejecuta solo si el nombre del juego cambia
+  }, [juego.name]); // Se ejecuta solo si el name del juego cambia
 
   const handleAddComment = () => {
     if (newComment.trim() === "" || selectedStars === null) return;
@@ -72,7 +72,7 @@ const JuegoDetalle = () => {
 
   const averageRating = comments.length > 0
     ? (comments.reduce((acc, curr) => acc + (curr.rating || 0), 0) / comments.length).toFixed(1)
-    : juego.valoracion;
+    : juego.rating;
 
   return (
     <div className="background-container">
@@ -80,14 +80,14 @@ const JuegoDetalle = () => {
       <div className="container mt-4">
         <div className="game-container">
           <div className="d-flex justify-content-between align-items-center mb-3">
-            <h1 className="h3">{juego.nombre}</h1>
+            <h1 className="h3">{juego.name}</h1>
           </div>
 
           <div className="row">
             <div className="col-12 col-md-8 mb-3">
               <div className="card trailer-card">
                 <div className="card-body text-center">
-                  <h5 className="card-title">Trailer de {juego.nombre}</h5>
+                  <h5 className="card-title">Trailer de {juego.name}</h5>
                   <iframe
                     width="100%"
                     height="400px"
@@ -95,7 +95,7 @@ const JuegoDetalle = () => {
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    title={`Trailer de ${juego.nombre}`}
+                    title={`Trailer de ${juego.name}`}
                   ></iframe>
                 </div>
               </div>
@@ -106,12 +106,12 @@ const JuegoDetalle = () => {
                 <div className="card-body">
                   <h5 className="card-title">Detalles de juego</h5>
                   <p className="card-text fw-bold">Descripción:</p>
-                  <p>{juego.descripcion}</p>
+                  <p>{juego.description}</p>
                   <div className="mb-3">
-                    <p><strong>Categoría:</strong> {juego.categoria}</p>
-                    <p><strong>Ventas:</strong> {juego.ventas}</p>
-                    <p><strong>Desarrollado por:</strong></p>
-                    <p>{juego.empresa}</p>
+                    <p><strong>Categoría:</strong> {juego.category}</p>
+                    <p><strong>Ventas:</strong> {juego.sells}</p>
+                    <p><strong>Desarrollado por:</strong> {juego.company}</p>
+                    <p>{juego.price}</p>
                   </div>
                 </div>
               </div>
@@ -142,7 +142,7 @@ const JuegoDetalle = () => {
                       <div className="border rounded overflow-hidden" style={{ height: "200px", width: "300px" }}>
                         <img
                           src={src}
-                          alt={`Imagen ${index + 1} de ${juego.nombre}`}
+                          alt={`Imagen ${index + 1} de ${juego.name}`}
                           className="img-fluid h-100 w-100"
                           style={{ objectFit: "cover" }}
                         />

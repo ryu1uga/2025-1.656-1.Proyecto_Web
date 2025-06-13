@@ -26,7 +26,7 @@ const HomeList=({ juegos }: Propsjuegos)=> {
                     src="..."
                     />
                     <div className="card-body">
-                    <h6 className="card-title fw-bold">{juego.nombre}</h6>
+                    <h6 className="card-title fw-bold">{juego.name}</h6>
                     </div>
                 </div>
                 ))}

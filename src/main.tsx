@@ -21,8 +21,6 @@ import ResenaPage from './pages/user/ResenaPage/ResenaPage.tsx';
 import ResenaConfirm from './pages/user/ResenaConfirm.tsx';
 import ChangePage from './pages/user/ChangePage.tsx';
 
-
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
