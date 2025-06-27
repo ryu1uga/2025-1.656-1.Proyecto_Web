@@ -1,16 +1,16 @@
-export interface juego{
-    id: number
+export interface juego {
+  id: number
+  name: string
+  price: number
+  description: string
+  company: string
+  category: {
     name: string
-    rating: string
-    price: number
-    category: string
-    description: string
-    coments?: string[]
-    sells: string
-    company: string
-    images_url?: ["1.jpg", "2.jpg", "3.jpg", "4.jpg"]
-    trailer?: URL
-    state: number
+  }
+  sells: { amount: number }[]
+  ratings: { rating: number }[]
+  images: { url: string }[]
+  trailers?: { url: string }[];
 }
 
 export interface Comment {
