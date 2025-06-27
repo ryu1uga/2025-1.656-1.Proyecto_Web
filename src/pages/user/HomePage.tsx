@@ -35,12 +35,21 @@ const HomePage = () => {
   }
 
   const ordenarPorVentas = () => {
-    const ordenado = [...juegos].sort((a, b) => parseFloat(b.sells) - parseFloat(a.sells))
+    const ordenado = [...juegos].sort((a, b) => {
+      const totalA = a.sells.reduce((sum, sell) => sum + sell.amount, 0)
+      const totalB = b.sells.reduce((sum, sell) => sum + sell.amount, 0)
+      return totalB - totalA
+    })
     setjuegos(ordenado)
   }
 
   const ordenarPorValoracion = () => {
-    const ordenado = [...juegos].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
+    const avg = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / (arr.length || 1)
+    const ordenado = [...juegos].sort((a, b) => {
+      const avgA = avg(a.ratings.map(r => r.rating))
+      const avgB = avg(b.ratings.map(r => r.rating))
+      return avgB - avgA
+    })
     setjuegos(ordenado)
   }
 
