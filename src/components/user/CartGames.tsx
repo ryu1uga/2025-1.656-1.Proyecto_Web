@@ -1,22 +1,17 @@
 import { useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
-
-export interface Games { 
-  id : number
-  name : string
-  image : string
-}
+import type { juego } from "./HomeJuego"
 
 interface ListGames {
-  data : Games[]
+  data : juego[]
 }
 
 const CartGames = (props : ListGames) => { 
   const navigate = useNavigate()
   const saveCart = localStorage.getItem("guardar-carrito")
-  const initialCart: Games[] = saveCart ? JSON.parse(saveCart) : props.data
+  const initialCart: juego[] = saveCart ? JSON.parse(saveCart) : props.data
 
-  const [cart, setCart] = useState<Games[]>(initialCart) 
+  const [cart, setCart] = useState<juego[]>(initialCart) 
 
   const removeGame = (id : number) => {
     const updateCart = cart.filter((elemento) => elemento.id !== id)
@@ -33,13 +28,13 @@ const CartGames = (props : ListGames) => {
     <h3>Shopping Cart</h3>
     <div className="card-group-style">
       {
-        cart.map((elemento: Games) => {
-          return <div id="Card-s-c" className="card-style position-relative" key={elemento.id}>
-            <button type="button" className="btn-close position-absolute top-0 end-0 m-1" aria-label="Close" onClick={() => removeGame(elemento.id)}></button>
+        cart.map((game) => {
+          return <div id="Card-s-c" className="card-style position-relative" key={game.id}>
+            <button type="button" className="btn-close position-absolute top-0 end-0 m-1" aria-label="Close" onClick={() => removeGame(game.id)}></button>
             <div id ="img-juego"className="game-img d-flex align-items-center justify-content-center">
-              <img src={elemento.image} alt={elemento.name} className="img-fluid" />
+              <img src={`/imagenes/juegos_carrito/${game.name.toLowerCase().replace(/\s+/g, "")}.jpg`} alt={game.name} className="img-fluid" />
             </div>
-            <p id="texto-C"className="texto">{elemento.name}</p>
+            <p id="texto-C"className="texto">{game.name}</p>
           </div>
         })
       }

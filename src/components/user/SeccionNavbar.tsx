@@ -12,7 +12,7 @@ export const SeccionNavbar = (props: SeccionNavbarProps) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">LP Store</a>
+        <a className="navbar-brand" href="/user/home">LP Store</a>
         
         <button
           className="navbar-toggler"

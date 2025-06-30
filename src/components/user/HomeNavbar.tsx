@@ -5,6 +5,7 @@ interface HomeNavbarProps {
   OrdenarVentas: () => void
   OrdenarValoracion: () => void
   Restablecer: () => void
+  toggleCarrito: () => void // NUEVA PROP
 };
 
 
@@ -12,7 +13,7 @@ const HomeNavbar = (props: HomeNavbarProps) => {
     const navigate = useNavigate ();
     return (<nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to={"/user/home"}></Link>
+                    <a className="navbar-brand" href="">LP Store</a>
                     
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span className="navbar-toggler-icon"></span>
@@ -40,11 +41,18 @@ const HomeNavbar = (props: HomeNavbarProps) => {
                             </li>
                         </ul>
 
-                        <div id = "searchbar" className="form-inline d-flex me-3" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Buscar juego..." aria-label="Buscar" />
-                            
+                        <div id="searchbar" className="form-inline d-flex me-3" role="search">
+                            <input
+                            className="form-control me-2"
+                            type="search"
+                            placeholder="Buscar juego..."
+                            aria-label="Buscar"
+                            />
+                            <button className="btn btn-outline-light" type="submit">
+                                <i className="fas fa-search"></i>
+                            </button>
                         </div>
-                        <a  className="btn btn-outline-light" type="button" onClick={()=>navigate("/user/carrito")}>
+                        <a  className="btn btn-outline-light" type="button" onClick={props.toggleCarrito}>
                             <i className="fas fa-shopping-cart me-1"></i> Carrito
                         </a>
                     </div>
