@@ -1,16 +1,35 @@
-export interface juego{
-    id: number
-    name: string
-    rating: string
-    price: number
-    category: string
-    description: string
-    coments?: string[]
-    sells: string
-    company: string
-    images_url?: ["1.jpg", "2.jpg", "3.jpg", "4.jpg"]
-    trailer?: URL
-    state: number
+export interface juego {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  company: string;
+  category: {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  sells: {
+    amount: number;
+  }[];
+  ratings: {
+    rating: number;
+  }[];
+  images: {
+    id: number;
+    url: string;
+    createdAt: string;
+    updatedAt: string;
+    gameId: number;
+  }[];
+  trailers?: {
+    id: number;
+    url: string;
+    createdAt: string;
+    updatedAt: string;
+    gameId: number;
+  }[];
 }
 
 export interface Comment {

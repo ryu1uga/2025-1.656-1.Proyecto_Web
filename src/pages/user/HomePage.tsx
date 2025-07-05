@@ -6,11 +6,12 @@ import type { juego } from "../../components/user/HomeJuego"
 import HomeNavbar from "../../components/user/HomeNavbar"
 import HomeSlides from "../../components/user/HomeSlides"
 import HomeList from "../../components/user/HomeList"
-import CartGames from "../../components/user/CartGames"
+import CartGames, { type Games } from "../../components/user/CartGames"
 
 const HomePage = () => {
   
   const [juegos, setjuegos] = useState<juego[]>([])
+  const [carrito, setCarrito] = useState<Games[]>([])
   const [mostrarCarrito, setMostrarCarrito] = useState<boolean>(false)
 
   const ObtenerJuegos = async () => {
@@ -38,12 +39,15 @@ const HomePage = () => {
   }
 
   const ordenarPorVentas = () => {
-    const ordenado = [...juegos].sort((a, b) => parseFloat(b.sells) - parseFloat(a.sells))
+    const ordenado = [...juegos].sort((a, b) => b.sells.length - a.sells.length)
     setjuegos(ordenado)
   }
 
+  const promedio = (ratings: { rating: number }[]) =>
+  ratings.reduce((sum, r) => sum + r.rating, 0) / (ratings.length || 1)
+
   const ordenarPorValoracion = () => {
-    const ordenado = [...juegos].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
+    const ordenado = [...juegos].sort((a, b) => promedio(b.ratings) - promedio(a.ratings))
     setjuegos(ordenado)
   }
 
@@ -68,7 +72,7 @@ const HomePage = () => {
           <div className="content-column">
             <HomeSlides />
             <HomeList juegos={juegos} />
-            {mostrarCarrito && <CartGames data={juegos} />}
+            {mostrarCarrito && <CartGames data={carrito} />}
           </div>
 
       </div>
