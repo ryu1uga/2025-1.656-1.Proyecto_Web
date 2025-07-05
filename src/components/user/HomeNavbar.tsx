@@ -5,6 +5,7 @@ interface HomeNavbarProps {
   OrdenarVentas: () => void
   OrdenarValoracion: () => void
   Restablecer: () => void
+  toggleCarrito: () => void // NUEVA PROP
 };
 
 
@@ -51,7 +52,7 @@ const HomeNavbar = (props: HomeNavbarProps) => {
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>
-                        <a  className="btn btn-outline-light" type="button" onClick={()=>navigate("/user/carrito")}>
+                        <a  className="btn btn-outline-light" type="button" onClick={props.toggleCarrito}>
                             <i className="fas fa-shopping-cart me-1"></i> Carrito
                         </a>
                     </div>

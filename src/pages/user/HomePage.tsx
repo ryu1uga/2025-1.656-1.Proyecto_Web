@@ -1,14 +1,18 @@
 import { API_URL } from "../../main"
 import "./HomePage.css"
+import "./CartPage.css"
 import { useEffect, useState } from "react"
 import type { juego } from "../../components/user/HomeJuego"
 import HomeNavbar from "../../components/user/HomeNavbar"
 import HomeSlides from "../../components/user/HomeSlides"
 import HomeList from "../../components/user/HomeList"
+import CartGames, { type Games } from "../../components/user/CartGames"
 
 const HomePage = () => {
   
   const [juegos, setjuegos] = useState<juego[]>([])
+  const [carrito, setCarrito] = useState<Games[]>([])
+  const [mostrarCarrito, setMostrarCarrito] = useState<boolean>(false)
 
   const ObtenerJuegos = async () => {
     const response = await fetch(`${API_URL}/games`)
@@ -35,26 +39,24 @@ const HomePage = () => {
   }
 
   const ordenarPorVentas = () => {
-    const ordenado = [...juegos].sort((a, b) => {
-      const totalA = a.sells.reduce((sum, sell) => sum + sell.amount, 0)
-      const totalB = b.sells.reduce((sum, sell) => sum + sell.amount, 0)
-      return totalB - totalA
-    })
+    const ordenado = [...juegos].sort((a, b) => b.sells.length - a.sells.length)
     setjuegos(ordenado)
   }
 
+  const promedio = (ratings: { rating: number }[]) =>
+  ratings.reduce((sum, r) => sum + r.rating, 0) / (ratings.length || 1)
+
   const ordenarPorValoracion = () => {
-    const avg = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / (arr.length || 1)
-    const ordenado = [...juegos].sort((a, b) => {
-      const avgA = avg(a.ratings.map(r => r.rating))
-      const avgB = avg(b.ratings.map(r => r.rating))
-      return avgB - avgA
-    })
+    const ordenado = [...juegos].sort((a, b) => promedio(b.ratings) - promedio(a.ratings))
     setjuegos(ordenado)
   }
 
   const Restablecer = () => {
     setjuegos(lista)
+  }
+
+  const toogleCarrito = () => {
+    setMostrarCarrito(prev => !prev)
   }
 
   return (
@@ -63,12 +65,14 @@ const HomePage = () => {
         OrdenarVentas={ordenarPorVentas}
         OrdenarValoracion={ordenarPorValoracion}
         Restablecer={Restablecer}
+        toggleCarrito={toogleCarrito}
       />
       <div className="container my-5">
 
           <div className="content-column">
             <HomeSlides />
             <HomeList juegos={juegos} />
+            {mostrarCarrito && <CartGames data={carrito} />}
           </div>
 
       </div>

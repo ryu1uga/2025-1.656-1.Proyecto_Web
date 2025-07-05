@@ -16,10 +16,10 @@ import GamePage from './pages/admin/game/GamePage.tsx';
 import GameAddPage from './pages/admin/game/add/GameAddPage.tsx';
 import GameEditPage from './pages/admin/game/edit/GameEditPage.tsx';
 import GameDetailsPage from './pages/admin/game/details/GameDetailsPage.tsx';
-import CartPage from './pages/user/CartPage.tsx';
 import ResenaPage from './pages/user/ResenaPage/ResenaPage.tsx';
 import ResenaConfirm from './pages/user/ResenaConfirm.tsx';
 import ChangePage from './pages/user/ChangePage.tsx';
+import CartPage from './pages/user/CartPage.tsx';
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
@@ -29,12 +29,12 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={ <LoginPage /> } />
         <Route path="/register" element={ <RegisterPage /> } />
+        <Route path="/user/carrito" element={<CartPage />} />
         <Route path="/user/confirmar" element={<ConfirmarEmail enviar={() => {}} />} />
         <Route path="/user/home" element={ <HomePage /> } />
         <Route path='/user/reset' element={ <ResetPage/> } />
         <Route path="/user/juego" element={<JuegoDetalle />} />
         <Route path='/user/edit' element={ <ChangePage />} />
-        <Route path="/user/carrito" element={<CartPage />} />
         <Route path="/user/pago" element={<PagoCarrito />} />
         <Route path="/user/confirmar" element={<EmailConfirm enviar={() => {}} />} />
         <Route path="/user/resena" element={<ResenaPage/>} />

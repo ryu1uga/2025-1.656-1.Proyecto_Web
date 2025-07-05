@@ -9,18 +9,20 @@ const JuegoDetalle = () => {
   const { state } = useLocation();
   const { juego }: { juego: juego } = state || {
     juego: {
+      id: 0,
       name: "Juego no encontrado",
-      valoracion: "",
-      ventas: "N/A",
-      categoria: "N/A",
-      empresa: "N/A",
-      descripcion: "Sin descripción",
-      comentarios: [],
-      trailer: new URL("https://www.youtube.com/watch?v="),
+      price: 0,
+      description: "Sin descripción",
+      company: "N/A",
+      category: { name: "N/A" },
+      sells: [],
+      ratings: [],
+      images: [],
+      trailers: [],
     },
   };
 
-  const trailerId = juego.trailer ? juego.trailer.toString().replace("https://www.youtube.com/watch?v=", "").trim() : ""
+  const trailerId = juego.trailers?.[0]?.url?.replace("https://www.youtube.com/watch?v=", "").trim() || "";
   const embedUrl = trailerId ? `https://www.youtube.com/embed/${trailerId}` : "https://www.youtube.com/embed/";
 
   const [comments, setComments] = useState<Comment[]>([]);
@@ -70,9 +72,32 @@ const JuegoDetalle = () => {
     setComments(comments.map(comment => comment.id === id ? { ...comment, dislikes: comment.dislikes + 1 } : comment));
   };
 
+  const handleBuyNow = () => {
+  const juegoCarrito = {
+    id: juego.id,
+    name: juego.name,
+    image: `/imagenes/juegos_carrito/${juego.name.toLowerCase().replace(/\s+/g, "")}.jpg` // Ajusta esta ruta si es necesario
+  };
+
+  // Obtener carrito actual
+  const carritoActual = localStorage.getItem("guardar-carrito");
+  const carrito: typeof juegoCarrito[] = carritoActual ? JSON.parse(carritoActual) : [];
+
+  // Verifica si ya está en el carrito
+  const yaExiste = carrito.some((item) => item.id === juegoCarrito.id);
+  if (!yaExiste) {
+    const nuevoCarrito = [...carrito, juegoCarrito];
+    localStorage.setItem("guardar-carrito", JSON.stringify(nuevoCarrito));
+  }
+
+};
+
+
   const averageRating = comments.length > 0
     ? (comments.reduce((acc, curr) => acc + (curr.rating || 0), 0) / comments.length).toFixed(1)
-    : juego.rating;
+    : (juego.ratings.length > 0
+      ? (juego.ratings.reduce((acc, r) => acc + r.rating, 0) / juego.ratings.length).toFixed(1)
+      : "N/A");
 
   return (
     <div className="background-container">
@@ -108,8 +133,8 @@ const JuegoDetalle = () => {
                   <p className="card-text fw-bold">Descripción:</p>
                   <p>{juego.description}</p>
                   <div className="mb-3">
-                    <p><strong>Categoría:</strong> {juego.category}</p>
-                    <p><strong>Ventas:</strong> {juego.sells}</p>
+                    <p><strong>Categoría:</strong> {juego.category.name}</p>
+                    <p><strong>Ventas:</strong> {juego.sells.length}</p>
                     <p><strong>Desarrollado por:</strong> {juego.company}</p>
                     <p>{juego.price}</p>
                   </div>
@@ -128,7 +153,7 @@ const JuegoDetalle = () => {
               </div>
             </div>
             <div className="col-12 col-md-6 mb-3 d-flex align-items-stretch">
-              <button className="btn btn-primary btn-lg w-100">COMPRAR AHORA</button>
+              <button className="btn btn-primary btn-lg w-100" onClick={handleBuyNow}>COMPRAR AHORA</button>
             </div>
           </div>
 
