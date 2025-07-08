@@ -5,15 +5,16 @@ import "./LoginPage.css"
 const LoginPage = () => {
 
     const navigate = useNavigate();
-    const login = (email: string, password: string, rememberMe: boolean, userstate: number) => {
+    const login = (email: string, token: string, usertype: number, state: number) => {
         console.log("Email:", email)
-        console.log("Password:", password)
-        console.log("Remember me:", rememberMe)
-        if (userstate == 0)
+        console.log("Token:", token)
+        console.log("UserType:", usertype)
+        console.log("state:", state)
+        if (usertype == 0)
         {
             navigate("/user/home");
         }
-        else if (userstate == 1)
+        else if (usertype == 1)
         {
             navigate("/admin");
         }
