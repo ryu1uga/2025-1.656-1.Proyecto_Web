@@ -30,6 +30,13 @@ export interface juego {
     updatedAt: string;
     gameId: number;
   }[];
+  attachment:{
+    id: number;
+    url: string;
+    createdAt: string;
+    updatedAt: string;
+    gameId: number;
+  }
 }
 
 export interface Comment {

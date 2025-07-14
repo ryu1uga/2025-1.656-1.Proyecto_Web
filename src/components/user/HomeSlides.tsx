@@ -1,40 +1,48 @@
-const HomeSlides =()=> {
+import { Navigate, useNavigate } from "react-router-dom";
+import type { news } from "./HomeNews";
+
+interface HomeSlidesProps {
+  news: news[];
+};
+
+const HomeSlides = ({ news }: HomeSlidesProps) => {
 
 
-    return (<div id="Carouseljuegos" className="carousel slide position-relative bg-secondary text-white text-center p-5 rounded" data-bs-ride="carousel">
-                    <div className="carousel-inner">
-                        <div className="carousel-item active">
-                            <img src="..." className="d-block w-100" alt="..." />
-                            <div className="carousel-caption d-none d-md-block">
-                                <h5>Imagen 1</h5>
-                                <p id="desc1">Descripción 1</p>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <img src="..." className="d-block w-100" alt="..." />
-                            <div className="carousel-caption d-none d-md-block">
-                                <h5>Imagen 2</h5>
-                                <p id="desc2">Descripción 2</p>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <img src="..." className="d-block w-100" alt="..." />
-                            <div className="carousel-caption d-none d-md-block">
-                                <h5>Imagen 3</h5>
-                                <p id="desc3">Descripción 3</p>
-                            </div>
+    return (
+        <div id="Carouseljuegos" className="carousel slide position-relative bg-secondary text-white text-center p-5 rounded" data-bs-ride="carousel">
+            <div className="carousel-inner">
+
+                {news.slice(0,5).map((n, index) => (
+                    <div key={n.id} className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                        {/* Aquí puedes usar una imagen real si la tienes en el objeto */}
+                        <img src={`${n.attachment.url}`} className="d-block w-100" alt={n.title} />
+
+                        <div className="carousel-caption d-none d-md-block">
+                            <h5>{n.title}</h5>
+                            <p>{n.text}</p>
                         </div>
                     </div>
+                ))}
 
-                    <a className="carousel-control-prev" href="#Carouseljuegos" role="button" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </a>
-                    <a className="carousel-control-next" href="#Carouseljuegos" role="button" data-bs-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </a>
-                </div>
+                {news.length == 0 && (
+                    <div className="carousel-item active">
+                        <div className="d-block w-100 bg-dark text-white p-5 rounded">
+                            <h5>No hay noticias disponibles</h5>
+                            <p>Vuelve más tarde</p>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <a className="carousel-control-prev" href="#Carouseljuegos" role="button" data-bs-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Previous</span>
+            </a>
+            <a className="carousel-control-next" href="#Carouseljuegos" role="button" data-bs-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
+            </a>
+        </div>
     );
-}
+};
 export default HomeSlides

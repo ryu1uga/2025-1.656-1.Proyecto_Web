@@ -3,6 +3,7 @@ import "./HomePage.css"
 import "./CartPage.css"
 import { useEffect, useState } from "react"
 import type { juego } from "../../components/user/HomeJuego"
+import type { news } from "../../components/user/HomeNews"
 import HomeNavbar from "../../components/user/HomeNavbar"
 import HomeSlides from "../../components/user/HomeSlides"
 import HomeList from "../../components/user/HomeList"
@@ -11,6 +12,7 @@ import CartGames, { type Games } from "../../components/user/CartGames"
 const HomePage = () => {
   
   const [juegos, setjuegos] = useState<juego[]>([])
+  const [news, setnews] = useState<news[]>([])
   const [carrito, setCarrito] = useState<Games[]>([])
   const [mostrarCarrito, setMostrarCarrito] = useState<boolean>(false)
 
@@ -38,26 +40,79 @@ const HomePage = () => {
     lista = JSON.parse(ListaJ)
   }
 
-  const ordenarPorVentas = () => {
-    const ordenado = [...juegos].sort((a, b) => b.sells.length - a.sells.length)
-    setjuegos(ordenado)
+  const ObetenerNews = async() =>{
+    const response = await fetch(`${API_URL}/news`)
+    const data = await response.json()
+
+    if (Array.isArray(data.data)) {
+      setjuegos(data.data)
+      sessionStorage.setItem('newslist', JSON.stringify(data.data))
+    } else {
+      console.error("La propiedad 'data' no es un array:", data)
+      setnews([])
+    }
   }
+  useEffect(() => {ObetenerNews()}, [])
+  
+  const ListaN = sessionStorage.getItem("newslist")
+
+  let list: news[]
+  if (ListaN == null) {
+    list = []
+  } else {
+    list = JSON.parse(ListaN)
+  }
+
+  
+  const ordenarPorVentas = async () => {
+    try {
+        const response = await fetch(`${API_URL}/games/sells`); // Ajusta la URL según tu backend
+        const data = await response.json();
+        console.log("Juegos ordenados por ventas:", data);
+        if (Array.isArray(data.data)) {
+          setjuegos(data.data)
+          sessionStorage.setItem('listaJuegos', JSON.stringify(data.data))
+        } else {
+          console.error("La propiedad 'data' no es un array:", data)
+          setjuegos([])
+        }
+        // Si estás usando estado para renderizar los juegos:
+    } catch (error) {
+        console.error("Error al ordenar por ventas", error);
+    }
+};
+
 
   const promedio = (ratings: { rating: number }[]) =>
   ratings.reduce((sum, r) => sum + r.rating, 0) / (ratings.length || 1)
 
-  const ordenarPorValoracion = () => {
-    const ordenado = [...juegos].sort((a, b) => promedio(b.ratings) - promedio(a.ratings))
-    setjuegos(ordenado)
+  const ordenarPorValoracion = async() => {
+    try {
+        const response = await fetch(`${API_URL}/games/ratings`); // Ajusta la URL según tu backend
+        const data = await response.json();
+        console.log("Juegos ordenados por ventas:", data);
+        if (Array.isArray(data.data)) {
+          setjuegos(data.data)
+          sessionStorage.setItem('listaJuegos', JSON.stringify(data.data))
+        } else {
+          console.error("La propiedad 'data' no es un array:", data)
+          setjuegos([])
+        }
+        // Si estás usando estado para renderizar los juegos:
+    } catch (error) {
+        console.error("Error al ordenar por ventas", error);
+    }
   }
 
   const Restablecer = () => {
-    setjuegos(lista)
+    ObtenerJuegos();
   }
 
   const toogleCarrito = () => {
     setMostrarCarrito(prev => !prev)
   }
+
+
 
   return (
     <div className="background-container">
@@ -70,7 +125,7 @@ const HomePage = () => {
       <div className="container my-5">
 
           <div className="content-column">
-            <HomeSlides />
+            <HomeSlides news = {news} />
             <HomeList juegos={juegos} />
             {mostrarCarrito && <CartGames data={carrito} />}
           </div>
