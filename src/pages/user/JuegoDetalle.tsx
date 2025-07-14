@@ -3,6 +3,8 @@ import type { juego, Comment } from '../../components/user/HomeJuego';
 import { SeccionNavbar } from "../../components/user/SeccionNavbar";
 import "./JuegoDetalle.css";
 import { useState, useEffect } from "react";
+import { API_URL } from "../../main";
+import CartGames from "../../components/user/CartGames";
 
 const JuegoDetalle = () => {
   const navigate = useNavigate();
@@ -29,6 +31,11 @@ const JuegoDetalle = () => {
   const [newComment, setNewComment] = useState("");
   const [selectedStars, setSelectedStars] = useState<number | null>(null);
   const [imageSources, setImageSources] = useState<string[]>([]); // Almacena las rutas de las imágenes
+  
+  const [carrito, setCarrito] = useState<juego[]>([]);
+  const [mostrarCarrito, setMostrarCarrito] = useState(false);
+
+  const userId = Number(sessionStorage.getItem("userId"));
 
   useEffect(() => {
     // Cargar las imágenes solo una vez al montar el componente
@@ -48,6 +55,20 @@ const JuegoDetalle = () => {
       setImageSources(resolvedSources as string[]);
     });
   }, [juego.name]); // Se ejecuta solo si el name del juego cambia
+
+  useEffect(() => {
+    const obtenerCarrito = async () => {
+      try {
+        const res = await fetch(`${API_URL}/cart?userId=${userId}`);
+        const data = await res.json();
+        setCarrito(data.carrito || []);
+      } catch (err) {
+        console.error("Error cargando carrito:", err);
+      }
+    };
+
+    obtenerCarrito();
+  }, [userId]);
 
   const handleAddComment = () => {
     if (newComment.trim() === "" || selectedStars === null) return;
@@ -72,39 +93,60 @@ const JuegoDetalle = () => {
     setComments(comments.map(comment => comment.id === id ? { ...comment, dislikes: comment.dislikes + 1 } : comment));
   };
 
-const handleBuyNow = () => {
-  const juegoCarrito = {
-    id: juego.id,
-    name: juego.name,
-    price: juego.price,
-    description: juego.description,
-    company: juego.company,
-    category: juego.category,
-    sells: juego.sells,
-    ratings: juego.ratings,
-    images: juego.images,
-    trailers: juego.trailers,
-    attachment: juego.images[0] || {
-      id: 0,
-      url: "https://via.placeholder.com/300x200?text=Sin+Imagen",
-      createdAt: "",
-      updatedAt: "",
-      gameId: juego.id
+  const handleBuyNow = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("usuario") || "{}");
+      const userId = user?.id;
+
+      if (!userId) {
+        console.error("Debe iniciar sesión para añadir al carrito.");
+        return;
+      }
+
+      // Agregar en la BD (POST /cart/add)
+      const response = await fetch(`${API_URL}/cart/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId,
+          gameId: juego.id
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.error("Juego añadido al carrito.");
+
+        // Ahora actualiza el carrito completo en backend (PUT /cart)
+        const carritoActual = JSON.parse(sessionStorage.getItem("carrito") || "[]");
+        const nuevoCarrito = [...carritoActual, juego];
+
+        await fetch(`${API_URL}/cart`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            userId,
+            games: nuevoCarrito.map(j => j.id)
+          })
+        });
+
+        sessionStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+
+      } else {
+        console.error("Error al añadir al carrito:", data);
+        console.error("No se pudo añadir al carrito.");
+      }
+
+    } catch (error) {
+      console.error("Error de red:", error);
+      console.error("Error al conectar con el servidor.");
     }
   };
-
-  const carritoActual = localStorage.getItem("guardar-carrito");
-  const carrito: typeof juegoCarrito[] = carritoActual ? JSON.parse(carritoActual) : [];
-
-  const yaExiste = carrito.some((item) => item.id === juegoCarrito.id);
-  if (!yaExiste) {
-    const nuevoCarrito = [...carrito, juegoCarrito];
-    localStorage.setItem("guardar-carrito", JSON.stringify(nuevoCarrito));
-  }
-
-  navigate("/user/carrito");
-};
-
 
 
   const averageRating = comments.length > 0
@@ -114,10 +156,10 @@ const handleBuyNow = () => {
       : "N/A");
 
   return (
-    <div className="background-container">
-      <SeccionNavbar />
+    <div className="JuegoDetalle-background-container">
+      <SeccionNavbar toggleCarrito={() => setMostrarCarrito(prev => !prev)}/>
       <div className="container mt-4">
-        <div className="game-container">
+        <div className="JuegoDetalle-game-container">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h1 className="h3">{juego.name}</h1>
           </div>
@@ -174,10 +216,10 @@ const handleBuyNow = () => {
           <div className="row mt-4">
             <div className="col-12">
               <h5 className="mb-3">Galería</h5>
-              <div className="gallery-container">
-                <div className="gallery-inner">
+              <div className="JuegoDetalle-gallery-container">
+                <div className="JuegoDetalle-gallery-inner">
                   {imageSources.map((src, index) => (
-                    <div key={index} className="gallery-item">
+                    <div className="JuegoDetalle-gallery-item">
                       <div className="border rounded overflow-hidden" style={{ height: "200px", width: "300px" }}>
                         <img
                           src={src}
@@ -250,6 +292,9 @@ const handleBuyNow = () => {
             ))}
           </div>
         </div>
+        {mostrarCarrito && (
+          <CartGames data={carrito} actualizarCarrito={setCarrito} />
+        )}
       </div>
     </div>
   );

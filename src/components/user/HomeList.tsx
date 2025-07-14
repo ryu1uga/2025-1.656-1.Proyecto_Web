@@ -23,7 +23,7 @@ const HomeList=({ juegos }: Propsjuegos)=> {
                     className="card-img-top bg-secondary"
                     alt="Placeholder"
                     style={{ height: "140px" }}
-                    src={`${juego.attachment.url}`}
+                    src={juego.attachment?.url || "https://via.placeholder.com/140x140?text=Sin+imagen"}    
                     />
                     <div className="card-body">
                     <h6 className="card-title fw-bold">{juego.name}</h6>

@@ -67,3 +67,17 @@
     cursor: pointer;
     margin-top: 1rem;
 }
+.popup-success {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1000;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}

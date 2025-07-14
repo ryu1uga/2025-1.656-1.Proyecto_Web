@@ -4,6 +4,8 @@ export interface juego {
   price: number;
   description: string;
   company: string;
+  plataformas: string;
+  state: number;
   category: {
     id: number;
     name: string;

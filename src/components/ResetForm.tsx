@@ -1,10 +1,7 @@
 import { useState } from "react"
+import { API_URL } from "../main"
 
-interface ResetFormProps{
-  enviar: (email: string, password: string, newPassword: string) => void
-}
-
-const ResetForm = (props : ResetFormProps) => {
+const ResetForm = () => {
   const [email, setEmail] = useState<string>("")
   const [newPassword, setNewPassword] = useState<string>("")
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>("")
@@ -12,44 +9,35 @@ const ResetForm = (props : ResetFormProps) => {
   const [emailError, setEmailError] = useState<string>("")
   const [newPasswordError, setNewPasswordError] = useState<string>("")
   const [confirmNewPasswordError, setConfirmNewPasswordError] = useState<string>("")
-
-  const userData =
-    [
-        { email: "fabrizzio@email.pw"},
-        { email: "gianfranco@email.pw"},
-        { email: "lucas@email.pw"},
-        { email: "ryuichi@email.pw"},
-        { email: "giancarlo@email.pw"}
-    ]
+  const [serverError, setServerError] = useState<string>("")
+  const [successMessage, setSuccessMessage] = useState<string>("")
 
   const emailOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.currentTarget.value)
+    setEmail(e.target.value)
   }
 
   const newPasswordOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(e.currentTarget.value)
+    setNewPassword(e.target.value)
   }
 
   const confirmNewPasswordOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmNewPassword(e.currentTarget.value)
+    setConfirmNewPassword(e.target.value)
   }
 
   const validateForm = (): boolean => {
     setEmailError("")
     setNewPasswordError("")
     setConfirmNewPasswordError("")
+    setServerError("")
+    setSuccessMessage("")
 
     let valid = true
-    const user = userData.find(user => user.email === email)
 
-    if (!email) {
+    if (!email.trim()) {
       setEmailError("Email is required.")
       valid = false
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       setEmailError("Invalid email format.")
-      valid = false
-    } else if (!user) {
-      setEmailError("Email not found.")
       valid = false
     }
 
@@ -72,37 +60,87 @@ const ResetForm = (props : ResetFormProps) => {
     return valid
   }
 
-  return <div>
-    <form>
-      <div className="row">
-        <div className="col-12 mx-auto form-container">
-          <h1>Reset your Password</h1>
-          <div className="mb-3">
-            <label className="form-label">Enter your account's verified <u>email address</u> and we will send you a password reset confirmation message.</label>
-            <input type="email" className="form-control" value={email} onChange={emailOnChange} />
-            <div className="form-text text-danger">{emailError}</div>
-          </div>
-          <div className="mb-3">
-            <label className="form-label">New password</label>
-            <input type="password" className="form-control" value={newPassword} onChange={newPasswordOnChange} />
-            <div className="form-text text-danger">{newPasswordError}</div>
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Confirm new password</label>
-            <input type="password" className="form-control" value={confirmNewPassword} onChange={confirmNewPasswordOnChange} />
-            <div className="form-text text-danger">{confirmNewPasswordError}</div>
-          </div>
-          <div className="d-flex justify-content-center">
-            <button type="button" className="btn btn-primary" onClick={() => {
-              if (validateForm()) {
-                props.enviar(email, newPassword, confirmNewPassword)
-              }
-            }}>Send password reset email</button>
-          </div>
+  const handleResetPassword = async () => {
+    if (!validateForm()) return
+
+    try {
+      const response = await fetch(`${API_URL}/users/reset-password`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, newPassword })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          setEmailError("Email not found.")
+        } else {
+          setServerError(data?.message || "Error resetting password.")
+        }
+        return
+      }
+
+      setSuccessMessage("Password reset successfully. You can now log in.")
+      setEmail("")
+      setNewPassword("")
+      setConfirmNewPassword("")
+    } catch (error) {
+      setServerError("Error connecting to the server.")
+    }
+  }
+
+  return (
+    <div>
+      <form>
+        {serverError && <div className="ResetPage-server-error">{serverError}</div>}
+        {successMessage && <div className="ResetPage-success">{successMessage}</div>}
+        
+        <div className="ResetPage-form-group">
+          <label className="ResetPage-label">
+            Enter your account's verified <u>email address</u> and we will send you a password reset confirmation message.
+          </label>
+          <input 
+            type="email" 
+            className="ResetPage-input" 
+            value={email} 
+            onChange={emailOnChange} 
+          />
+          {emailError && <div className="ResetPage-error">{emailError}</div>}
         </div>
-      </div>
-    </form>  
-  </div>
+        
+        <div className="ResetPage-form-group">
+          <label className="ResetPage-label">New password</label>
+          <input 
+            type="password" 
+            className="ResetPage-input" 
+            value={newPassword} 
+            onChange={newPasswordOnChange} 
+          />
+          {newPasswordError && <div className="ResetPage-error">{newPasswordError}</div>}
+        </div>
+        
+        <div className="ResetPage-form-group">
+          <label className="ResetPage-label">Confirm new password</label>
+          <input 
+            type="password" 
+            className="ResetPage-input" 
+            value={confirmNewPassword} 
+            onChange={confirmNewPasswordOnChange} 
+          />
+          {confirmNewPasswordError && <div className="ResetPage-error">{confirmNewPasswordError}</div>}
+        </div>
+        
+        <div className="ResetPage-button-container">
+          <button type="button" className="ResetPage-button" onClick={handleResetPassword}>
+            Send password reset email
+          </button>
+        </div>
+      </form>  
+    </div>
+  )
 }
 
 export default ResetForm

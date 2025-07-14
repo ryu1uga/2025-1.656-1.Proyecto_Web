@@ -1,0 +1,351 @@
+.NewsAdd-container {
+    min-height: 100vh;
+    background-color: #e5e7eb;
+}
+
+.NewsAdd-header {
+    background-color: #0f766e;
+    color: white;
+    padding: 2rem 0;
+}
+
+.NewsAdd-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.NewsAdd-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.025em;
+    margin: 0;
+}
+
+.NewsAdd-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.NewsAdd-field {
+    margin-bottom: 1.5rem;
+}
+
+.NewsAdd-label {
+    display: block;
+    color: #374151;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.NewsAdd-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    font-size: 1.125rem;
+    transition: border-color 0.2s ease;
+}
+
+.NewsAdd-input:focus {
+    outline: none;
+    border-color: #14b8a6;
+}
+
+.NewsAdd-input-error {
+    border-color: #ef4444;
+}
+
+.NewsAdd-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    font-size: 1.125rem;
+    height: 8rem;
+    resize: none;
+    transition: border-color 0.2s ease;
+}
+
+.NewsAdd-textarea:focus {
+    outline: none;
+    border-color: #14b8a6;
+}
+
+.NewsAdd-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.NewsAdd-photos-section {
+    margin-bottom: 2rem;
+}
+
+.NewsAdd-photos-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.NewsAdd-photos-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.NewsAdd-photo-btn {
+    width: 12rem;
+    height: 8rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.NewsAdd-photo-btn:hover {
+    border-color: #14b8a6;
+}
+
+.NewsAdd-photo-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.NewsAdd-photo-btn-content {
+    text-align: center;
+}
+
+.NewsAdd-photo-icon {
+    font-size: 1.875rem;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.NewsAdd-photo-btn:hover .NewsAdd-photo-icon {
+    color: #14b8a6;
+}
+
+.NewsAdd-photo-text {
+    color: #6b7280;
+    transition: color 0.2s ease;
+}
+
+.NewsAdd-photo-btn:hover .NewsAdd-photo-text {
+    color: #059669;
+}
+
+.NewsAdd-photo-url {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.NewsAdd-photo-url-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.NewsAdd-photo-url-value {
+    color: #14b8a6;
+}
+
+.NewsAdd-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.NewsAdd-modal {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    max-width: 28rem;
+    width: 100%;
+    margin: 0 1rem;
+}
+
+.NewsAdd-modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.NewsAdd-modal-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    margin-bottom: 1rem;
+}
+
+.NewsAdd-modal-input:focus {
+    outline: none;
+    border-color: #14b8a6;
+}
+
+.NewsAdd-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.NewsAdd-modal-cancel {
+    padding: 0.5rem 1rem;
+    background-color: #d1d5db;
+    color: #374151;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.NewsAdd-modal-cancel:hover {
+    background-color: #9ca3af;
+}
+
+.NewsAdd-modal-submit {
+    padding: 0.5rem 1rem;
+    background-color: #0d9488;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.NewsAdd-modal-submit:hover {
+    background-color: #0f766e;
+}
+
+.NewsAdd-success {
+    padding: 1rem;
+    background-color: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.NewsAdd-general-error {
+    padding: 1rem;
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #dc2626;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.NewsAdd-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.NewsAdd-cancel-btn {
+    padding: 0.75rem 2rem;
+    background-color: #60a5fa;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.NewsAdd-cancel-btn:hover {
+    background-color: #3b82f6;
+}
+
+.NewsAdd-cancel-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.NewsAdd-submit-btn {
+    padding: 0.75rem 2rem;
+    background-color: #1d4ed8;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.NewsAdd-submit-btn:hover {
+    background-color: #1e40af;
+}
+
+.NewsAdd-submit-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.NewsAdd-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: NewsAdd-spin 1s linear infinite;
+}
+
+@keyframes NewsAdd-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .NewsAdd-title {
+        font-size: 2rem;
+    }
+    
+    .NewsAdd-content {
+        padding: 1rem;
+    }
+    
+    .NewsAdd-photos-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .NewsAdd-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .NewsAdd-cancel-btn,
+    .NewsAdd-submit-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}

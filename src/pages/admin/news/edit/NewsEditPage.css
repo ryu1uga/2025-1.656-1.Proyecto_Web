@@ -1,21 +1,21 @@
-.GameAdd-container {
+.NewsEdit-container {
     min-height: 100vh;
     background-color: #e5e7eb;
 }
 
-.GameAdd-header {
+.NewsEdit-header {
     background-color: #0f766e;
     color: white;
     padding: 2rem 0;
 }
 
-.GameAdd-header-content {
+.NewsEdit-header-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
 }
 
-.GameAdd-title {
+.NewsEdit-title {
     font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
@@ -23,17 +23,17 @@
     margin: 0;
 }
 
-.GameAdd-content {
+.NewsEdit-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1rem;
 }
 
-.GameAdd-field {
+.NewsEdit-field {
     margin-bottom: 1.5rem;
 }
 
-.GameAdd-label {
+.NewsEdit-label {
     display: block;
     color: #374151;
     font-size: 1.125rem;
@@ -41,7 +41,7 @@
     margin-bottom: 0.5rem;
 }
 
-.GameAdd-input {
+.NewsEdit-input {
     width: 100%;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -50,16 +50,16 @@
     transition: border-color 0.2s ease;
 }
 
-.GameAdd-input:focus {
+.NewsEdit-input:focus {
     outline: none;
     border-color: #14b8a6;
 }
 
-.GameAdd-input-error {
+.NewsEdit-input-error {
     border-color: #ef4444;
 }
 
-.GameAdd-textarea {
+.NewsEdit-textarea {
     width: 100%;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -70,22 +70,22 @@
     transition: border-color 0.2s ease;
 }
 
-.GameAdd-textarea:focus {
+.NewsEdit-textarea:focus {
     outline: none;
     border-color: #14b8a6;
 }
 
-.GameAdd-error {
+.NewsEdit-error {
     color: #ef4444;
     font-size: 0.875rem;
     margin-top: 0.25rem;
 }
 
-.GameAdd-photos-section {
+.NewsEdit-photos-section {
     margin-bottom: 2rem;
 }
 
-.GameAdd-photos-title {
+.NewsEdit-photos-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: #374151;
@@ -93,14 +93,14 @@
     margin-bottom: 1.5rem;
 }
 
-.GameAdd-photos-grid {
+.NewsEdit-photos-grid {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
     flex-wrap: wrap;
 }
 
-.GameAdd-photo-btn {
+.NewsEdit-photo-btn {
     width: 12rem;
     height: 8rem;
     background-color: white;
@@ -113,55 +113,55 @@
     transition: all 0.2s ease;
 }
 
-.GameAdd-photo-btn:hover {
+.NewsEdit-photo-btn:hover {
     border-color: #14b8a6;
 }
 
-.GameAdd-photo-btn:disabled {
+.NewsEdit-photo-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-.GameAdd-photo-btn-content {
+.NewsEdit-photo-btn-content {
     text-align: center;
 }
 
-.GameAdd-photo-icon {
+.NewsEdit-photo-icon {
     font-size: 1.875rem;
     color: #9ca3af;
     margin-bottom: 0.5rem;
     transition: color 0.2s ease;
 }
 
-.GameAdd-photo-btn:hover .GameAdd-photo-icon {
+.NewsEdit-photo-btn:hover .NewsEdit-photo-icon {
     color: #14b8a6;
 }
 
-.GameAdd-photo-text {
+.NewsEdit-photo-text {
     color: #6b7280;
     transition: color 0.2s ease;
 }
 
-.GameAdd-photo-btn:hover .GameAdd-photo-text {
+.NewsEdit-photo-btn:hover .NewsEdit-photo-text {
     color: #059669;
 }
 
-.GameAdd-photo-url {
+.NewsEdit-photo-url {
     margin-top: 1rem;
     text-align: center;
 }
 
-.GameAdd-photo-url-text {
+.NewsEdit-photo-url-text {
     font-size: 0.875rem;
     color: #6b7280;
     margin: 0;
 }
 
-.GameAdd-photo-url-value {
+.NewsEdit-photo-url-value {
     color: #14b8a6;
 }
 
-.GameAdd-modal-overlay {
+.NewsEdit-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -174,7 +174,7 @@
     z-index: 50;
 }
 
-.GameAdd-modal {
+.NewsEdit-modal {
     background-color: white;
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -183,13 +183,13 @@
     margin: 0 1rem;
 }
 
-.GameAdd-modal-title {
+.NewsEdit-modal-title {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 1rem;
 }
 
-.GameAdd-modal-input {
+.NewsEdit-modal-input {
     width: 100%;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -197,18 +197,18 @@
     margin-bottom: 1rem;
 }
 
-.GameAdd-modal-input:focus {
+.NewsEdit-modal-input:focus {
     outline: none;
     border-color: #14b8a6;
 }
 
-.GameAdd-modal-actions {
+.NewsEdit-modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;
 }
 
-.GameAdd-modal-cancel {
+.NewsEdit-modal-cancel {
     padding: 0.5rem 1rem;
     background-color: #d1d5db;
     color: #374151;
@@ -218,11 +218,11 @@
     transition: background-color 0.2s ease;
 }
 
-.GameAdd-modal-cancel:hover {
+.NewsEdit-modal-cancel:hover {
     background-color: #9ca3af;
 }
 
-.GameAdd-modal-submit {
+.NewsEdit-modal-submit {
     padding: 0.5rem 1rem;
     background-color: #0d9488;
     color: white;
@@ -232,11 +232,11 @@
     transition: background-color 0.2s ease;
 }
 
-.GameAdd-modal-submit:hover {
+.NewsEdit-modal-submit:hover {
     background-color: #0f766e;
 }
 
-.GameAdd-success {
+.NewsEdit-success {
     padding: 1rem;
     background-color: #dcfce7;
     border: 1px solid #86efac;
@@ -245,7 +245,7 @@
     margin-bottom: 1.5rem;
 }
 
-.GameAdd-general-error {
+.NewsEdit-general-error {
     padding: 1rem;
     background-color: #fef2f2;
     border: 1px solid #fca5a5;
@@ -254,13 +254,13 @@
     margin-bottom: 1.5rem;
 }
 
-.GameAdd-actions {
+.NewsEdit-actions {
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
 
-.GameAdd-cancel-btn {
+.NewsEdit-cancel-btn {
     padding: 0.75rem 2rem;
     background-color: #60a5fa;
     color: white;
@@ -272,16 +272,16 @@
     transition: background-color 0.2s ease;
 }
 
-.GameAdd-cancel-btn:hover {
+.NewsEdit-cancel-btn:hover {
     background-color: #3b82f6;
 }
 
-.GameAdd-cancel-btn:disabled {
+.NewsEdit-cancel-btn:disabled {
     background-color: #9ca3af;
     cursor: not-allowed;
 }
 
-.GameAdd-submit-btn {
+.NewsEdit-submit-btn {
     padding: 0.75rem 2rem;
     background-color: #1d4ed8;
     color: white;
@@ -296,26 +296,26 @@
     gap: 0.5rem;
 }
 
-.GameAdd-submit-btn:hover {
+.NewsEdit-submit-btn:hover {
     background-color: #1e40af;
 }
 
-.GameAdd-submit-btn:disabled {
+.NewsEdit-submit-btn:disabled {
     background-color: #9ca3af;
     cursor: not-allowed;
 }
 
-.GameAdd-spinner {
+.NewsEdit-spinner {
     display: inline-block;
     width: 1rem;
     height: 1rem;
     border: 2px solid transparent;
     border-top: 2px solid white;
     border-radius: 50%;
-    animation: GameAdd-spin 1s linear infinite;
+    animation: NewsEdit-spin 1s linear infinite;
 }
 
-@keyframes GameAdd-spin {
+@keyframes NewsEdit-spin {
     0% {
         transform: rotate(0deg);
     }
@@ -325,26 +325,26 @@
 }
 
 @media (max-width: 768px) {
-    .GameAdd-title {
+    .NewsEdit-title {
         font-size: 2rem;
     }
     
-    .GameAdd-content {
+    .NewsEdit-content {
         padding: 1rem;
     }
     
-    .GameAdd-photos-grid {
+    .NewsEdit-photos-grid {
         flex-direction: column;
         align-items: center;
     }
     
-    .GameAdd-actions {
+    .NewsEdit-actions {
         flex-direction: column;
         align-items: center;
     }
     
-    .GameAdd-cancel-btn,
-    .GameAdd-submit-btn {
+    .NewsEdit-cancel-btn,
+    .NewsEdit-submit-btn {
         width: 100%;
         max-width: 200px;
     }

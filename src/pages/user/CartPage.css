@@ -61,3 +61,10 @@
   cursor: pointer;
   font-size: 16px;
 }
+
+#footer-c h4 {
+  color: #fff;
+  background-color: #222;
+  padding: 10px;
+  border-radius: 8px;
+}

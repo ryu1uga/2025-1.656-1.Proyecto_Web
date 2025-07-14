@@ -16,10 +16,12 @@ import GamePage from './pages/admin/game/GamePage.tsx';
 import GameAddPage from './pages/admin/game/add/GameAddPage.tsx';
 import GameEditPage from './pages/admin/game/edit/GameEditPage.tsx';
 import GameDetailsPage from './pages/admin/game/details/GameDetailsPage.tsx';
-import ResenaPage from './pages/user/ResenaPage/ResenaPage.tsx';
 import ResenaConfirm from './pages/user/ResenaConfirm.tsx';
 import ChangePage from './pages/user/ChangePage.tsx';
-import CartPage from './pages/user/CartPage.tsx';
+import NewsPage from './pages/admin/news/NewsPage.tsx'
+import NewsAddPage from './pages/admin/news/add/NewsAddPage.tsx';
+import NewsEditPage from './pages/admin/news/edit/NewsEditPage.tsx'
+import Catalogo from './pages/user/CatalogoPage.tsx';
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
@@ -29,21 +31,24 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={ <LoginPage /> } />
         <Route path="/register" element={ <RegisterPage /> } />
-        <Route path="/user/carrito" element={<CartPage />} />
-        <Route path="/user/confirmar" element={<ConfirmarEmail enviar={() => {}} />} />
+        <Route path="/user/confirmar" element={<ConfirmarEmail/>} />
         <Route path="/user/home" element={ <HomePage /> } />
         <Route path='/user/reset' element={ <ResetPage/> } />
         <Route path="/user/juego" element={<JuegoDetalle />} />
         <Route path='/user/edit' element={ <ChangePage />} />
         <Route path="/user/pago" element={<PagoCarrito />} />
-        <Route path="/user/confirmar" element={<EmailConfirm enviar={() => {}} />} />
-        <Route path="/user/resena" element={<ResenaPage/>} />
+        <Route path="/confirmar" element={<EmailConfirm />} />
         <Route path="/user/resenaconfirm" element={<ResenaConfirm />} />
+        <Route path="/user/catalogo" element={<Catalogo />} />
         <Route path="/admin" element={ <MainPage /> } />
         <Route path="/admin/game" element={ <GamePage /> } />
         <Route path="/admin/game/add" element={ <GameAddPage /> } />
         <Route path="/admin/game/edit/:id" element={<GameEditPage />} />
-        <Route path="/admin/game/details" element={<GameDetailsPage />} />
+        <Route path="/admin/game/details/:id" element={<GameDetailsPage />} />
+        <Route path="/admin/news" element={ <NewsPage /> } />
+        <Route path="/admin/news/add" element={ <NewsAddPage/>} />
+        <Route path="/admin/news/edit/:id" element={<NewsEditPage />} />
+        
       </Routes>
     </BrowserRouter>
   </StrictMode>,

@@ -1,43 +1,28 @@
 import { useState } from "react"
+import { API_URL } from "../../main"
+import { useNavigate } from "react-router-dom"
 
-interface ChangeFormProps {
-  enviar: (firstName: string, lastName: string, email: string) => void
-}
-
-const ChangeForm = (props: ChangeFormProps) => {
+const ChangeForm = () => {
   const [firstName, setFirstName] = useState<string>("")
-  const [lastName, setLastName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
 
   const [firstNameError, setFirstNameError] = useState<string>("")
-  const [lastNameError, setLastNameError] = useState<string>("")
   const [emailError, setEmailError] = useState<string>("")
+  const [serverError, setServerError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
 
-  const firstNameOnChange = (e:React.ChangeEvent<HTMLInputElement>) => { 
-    setFirstName(e.currentTarget.value)
-  }
-
-  const lastNameOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(e.currentTarget.value)
-  }
-
-  const emailOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.currentTarget.value)
-  }
+  const navigate = useNavigate()
 
   const validateForm = (): boolean => {
     let valid = true
     setFirstNameError("")
     setLastNameError("")
     setEmailError("")
+    setServerError("")
+    setSuccessMessage("")
 
     if (!firstName.trim()) {
       setFirstNameError("First name is required.")
-      valid = false
-    }
-
-    if (!lastName.trim()) {
-      setLastNameError("Last name is required.")
       valid = false
     }
 
@@ -52,6 +37,37 @@ const ChangeForm = (props: ChangeFormProps) => {
     return valid
   }
 
+    const handleEdit = async () => {
+    if (!validateForm()) return
+
+    try {
+      const res = await fetch(`${API_URL}/users/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          firstName,
+          email
+        })
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setServerError(data?.data?.msg || "Error updating profile.")
+        return
+      }
+
+      setSuccessMessage("Profile updated successfully!")
+      // Redirigir después de unos segundos si quieres
+      setTimeout(() => navigate("/user/home"), 2000)
+
+    } catch (error) {
+      setServerError("Error connecting to server.")
+    }
+  }
+
   return <div className="div_1 row">
     <div className="div_2 text-center col">
       <img className="logo" src="/imagenes/perfil/perfil.jpg" />
@@ -59,30 +75,25 @@ const ChangeForm = (props: ChangeFormProps) => {
     <div className="div_3 col">
       <form id="form_styles">
         <p>Edit your profile information</p>
+        {serverError && <div className="alert alert-danger">{serverError}</div>}
+        {successMessage && <div className="alert alert-success">{successMessage}</div>}
         <div className="mb-3">
           <label className="form-label">First Name</label>
-          <input type="text" className="form-control" onChange={firstNameOnChange}/>
+          <input type="text" className="form-control" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
           <div className="form-text text-danger">{firstNameError}</div>
         </div>
         <div className="mb-3">
-          <label className="form-label">Last Name</label>
-          <input type="text" className="form-control" onChange={lastNameOnChange}/>
-          <div className="form-text text-danger">{lastNameError}</div>
-        </div>
-        <div className="mb-3">
           <label className="form-label">E-mail</label>
-          <input type="email" className="form-control" onChange={emailOnChange}/>
+          <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <div className="form-text text-danger">{emailError}</div>
         </div>
       </form>
     </div>
     <button type="button" className="btn-close" aria-label="Close"></button>
     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button className="btn btn-primary" type="button" onClick={() => { 
-        if(validateForm()){
-          props.enviar(firstName, lastName, email)
-        }
-      }}>Edit information</button>
+      <button className="btn btn-primary" type="button" onClick={(handleEdit)}>
+        Edit information
+      </button>
     </div>
   </div>
 }

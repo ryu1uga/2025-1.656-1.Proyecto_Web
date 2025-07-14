@@ -1,0 +1,20 @@
+.catalogo-container {
+  display: flex;
+  background-color: #1c1c1c; /* igual que HomePage */
+  padding: 2rem;
+  min-height: 100vh;
+  color: white;
+}
+
+.filtros {
+  flex: 0 0 250px;
+  margin-right: 2rem;
+  background-color: #2b2b2b;
+  padding: 1rem;
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.resultados {
+  flex: 1;
+}

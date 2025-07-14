@@ -13,8 +13,7 @@ const HomeSlides = ({ news }: HomeSlidesProps) => {
             <div className="carousel-inner">
 
                 {news.slice(0,5).map((n, index) => (
-                    <div key={n.id} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                        {/* Aquí puedes usar una imagen real si la tienes en el objeto */}
+                    <div key={n.id} className={`carousel-item ${index == 0 ? "active" : ""}`}>
                         <img src={`${n.attachment.url}`} className="d-block w-100" alt={n.title} />
 
                         <div className="carousel-caption d-none d-md-block">
@@ -28,7 +27,7 @@ const HomeSlides = ({ news }: HomeSlidesProps) => {
                     <div className="carousel-item active">
                         <div className="d-block w-100 bg-dark text-white p-5 rounded">
                             <h5>No hay noticias disponibles</h5>
-                            <p>Vuelve más tarde</p>
+                            <p>Vuelve mas tarde</p>
                         </div>
                     </div>
                 )}

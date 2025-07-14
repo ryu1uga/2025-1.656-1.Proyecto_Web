@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./GamePage.css";
-import type { Game } from "../../../components/admin/game/GameList";
+import type { juego } from "../../../components/user/HomeJuego";
+import { API_URL } from "../../../main";
 
 const GamePage = () => {
-    const [games, setGames] = useState<Game[]>(() => {
-        const juegosGuardadosStr = localStorage.getItem("games");
+    
+    const navigate = useNavigate()
+    const [games, setGames] = useState<juego[]>(() => {
+    const juegosGuardadosStr = sessionStorage.getItem("listaJuegos");
         if (juegosGuardadosStr) {
             try {
                 return JSON.parse(juegosGuardadosStr);
@@ -16,60 +19,128 @@ const GamePage = () => {
         return [];
     });
 
-    const deleteGame = (id: number) => {
-        const actualizados = games.filter(game => game.id !== id);
-        setGames(actualizados);
-        localStorage.setItem("games", JSON.stringify(actualizados));
+    const ObtenerJuegos = async () => {
+        try {
+            const response = await fetch(`${API_URL}/games`);
+            const data = await response.json();
+
+            if (Array.isArray(data.data)) {
+                setGames(data.data);
+                sessionStorage.setItem('listaJuegos', JSON.stringify(data.data));
+            } else {
+                console.error("La propiedad 'data' no es un array:", data);
+                setGames([]);
+            }
+        } catch (error) {
+            console.error("Error al obtener juegos:", error);
+        }
+    };
+
+    useEffect(() => {ObtenerJuegos()}, [])
+
+    const handleEdit = (game: juego) => {
+        sessionStorage.setItem("selectedGame", JSON.stringify(game));
+        navigate(`/admin/game/edit/${ game.id }`);
+    };
+
+    const deleteGame = async (id: number) => {
+        try {
+            const response = await fetch(`${API_URL}/games/${id}`, {
+                method: "DELETE"
+            });
+
+            if (!response.ok) {
+                throw new Error("Error deleting game from backend");
+            }
+
+            const actualizados = games.filter(game => game.id !== id);
+            setGames(actualizados);
+            sessionStorage.setItem("listaJuegos", JSON.stringify(actualizados));
+        } catch (error) {
+            console.error("Failed to delete game:", error);
+        }
+    };
+
+    const getAverageRating = (ratings?: { rating: number }[]) => {
+        if (!Array.isArray(ratings) || ratings.length === 0) return "No ratings";
+        const total = ratings.reduce((sum, r) => sum + r.rating, 0);
+        return (total / ratings.length).toFixed(1);
+    };
+
+    const getTotalSells = (sells?: { amount: number }[]) => {
+        if (!Array.isArray(sells)) return 0;
+        return sells.reduce((sum, s) => sum + s.amount, 0);
     };
 
     return (
-        <div className="container">
-            <h1 id="h1" className="mb-4">Available Games</h1>
-
-            <div className="d-flex justify-content-center mb-4">
-                <Link to="/admin/game/add" id="addGame" className="btn btnGamePage">
-                    Add Game
-                </Link>
+        <div className="GamePage-container">
+            <div className="GamePage-header">
+                <h1 className="GamePage-title">GAMES</h1>
             </div>
 
-            <div className="d-grid gap-3">
-                {games.map((game) => (
-                    <div className="card p-3" key={game.id}>
-                        <div className="d-flex justify-content-between align-items-start">
-                            <div className="w-100">
-                                <h5 className="mb-1">{game.name}</h5>
-                                {game.description && <p className="mb-1 text-muted">{game.description}</p>}
-                                <small>
-                                    📷 {game.photos?.length ?? 0} photo(s) | 🎬 {game.trailers?.length ?? 0} trailer(s)
-                                </small>
-                            </div>
-                            <div className="d-flex flex-column align-items-end ms-3">
-                                <Link
-                                    id="detail"
-                                    to="/admin/game/details"
-                                    className="btn btnGamePage btn-outline-info mb-2"
-                                    onClick={() => localStorage.setItem("selectedGame", JSON.stringify(game))}
-                                >
-                                    Details
-                                </Link>
-                                <Link
-                                    id="edit"
-                                    to={`/admin/game/edit/${game.id}`}
-                                    className="btn btnGamePage btn-outline-primary mb-2"
-                                >
-                                    Edit
-                                </Link>
-                                <button
-                                    id="delete"
-                                    className="btn btnGamePage btn-outline-danger"
-                                    onClick={() => deleteGame(game.id)}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
+            <div className="GamePage-content">
+                <div style={{ textAlign: 'center' }}>
+                    <Link to="/admin/game/add" className="GamePage-add-button">
+                        ADD GAME
+                    </Link>
+                </div>
+
+                {games.length === 0 ? (
+                    <div className="GamePage-no-games">
+                        No games added
                     </div>
-                ))}
+                ) : (
+                    <div>
+                        {games.map((game) => (
+                            <div className="GamePage-game-card" key={game.id}>
+                                <div className="GamePage-game-info">
+                                    <div className="GamePage-game-details">
+                                        <h5 className="GamePage-game-name">{game.name}</h5>
+                                        <p><strong>Company:</strong> {game.company}</p>
+                                        <p><strong>Category:</strong> {game.category?.name ?? "Unknown category"}</p>
+                                        <p><strong>Price:</strong> ${game.price}</p>
+                                        <p><strong>Sells:</strong> {getTotalSells(game.sells)}</p>
+                                        <p><strong>Rating:</strong> {getAverageRating(game.ratings)}</p>
+
+                                        {game.description && (
+                                            <p className="GamePage-game-description">{game.description}</p>
+                                        )}
+
+                                        <div className="GamePage-game-stats">
+                                            <span className="GamePage-photo-link">
+                                                {game.images?.length ?? 0} photo(s)
+                                            </span>
+                                            {" | "}
+                                            <span className="GamePage-trailer-link">
+                                                {game.trailers?.length ?? 0} trailer(s)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="GamePage-actions">
+                                        <Link
+                                            to={`/admin/game/details/${game.id}`}
+                                            className="GamePage-action-button GamePage-details-button"
+                                        >
+                                            DETAILS
+                                        </Link>
+                                        <button
+                                            className="GamePage-action-button GamePage-edit-button"
+                                            onClick={() => handleEdit(game)}
+                                        >
+                                            EDIT
+                                        </button>
+                                        <button
+                                            className="GamePage-action-button GamePage-delete-button"
+                                            onClick={() => deleteGame(game.id)}
+                                        >
+                                            DELETE
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

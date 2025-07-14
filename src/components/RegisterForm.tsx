@@ -94,55 +94,97 @@ const RegisterForm = () => {
 
             // Puedes almacenar el token aquí si es necesario
             // localStorage.setItem("token", data.data.token)
-
-            navigate("/user/home")
+            sessionStorage.setItem("email", email)
+            navigate("/confirmar")
         } catch (error) {
             setServerError("Error connecting to server.")
         }
     }
 
     return (
-        <div>
-            <form>
-                <div className="row">
-                    <div className="col-12 mx-auto form-container">
-                        <h1>Register</h1>
-                        {serverError && <div className="alert alert-danger">{serverError}</div>}
-                        <div className="mb-3">
-                            <label className="form-label">Name</label>
-                            <input type="text" className="form-control" value={name} onChange={e => setName(e.target.value)} />
-                            <div className="form-text text-danger">{nameError}</div>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Email address</label>
-                            <input type="email" className="form-control" value={email} onChange={e => setEmail(e.target.value)} />
-                            <div className="form-text text-danger">{emailError}</div>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
-                            <input type="password" className="form-control" value={password} onChange={e => setPassword(e.target.value)} />
-                            <div className="form-text text-danger">{passwordError}</div>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Confirm your password</label>
-                            <input type="password" className="form-control" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-                            <div className="form-text text-danger">{confirmPasswordError}</div>
-                        </div>
-                        <div className="mb-3 form-check">
-                            <input type="checkbox" className="form-check-input" checked={agree} onChange={e => setAgree(e.target.checked)} />
-                            <label className="form-check-label">I Agree to the <Link to={""}>Terms and Conditions</Link></label>
-                            <div className="form-text text-danger">{agreeError}</div>
-                        </div>
-                        <div className="col-12 mx-auto form-container mb-3">
-                            <span>You're already registered? </span>
-                            <Link to={"../"}>Login here</Link>
-                        </div>
-                        <div className="d-flex justify-content-center">
-                            <button type="button" className="btn btn-primary" onClick={handleRegister}>REGISTER</button>
-                        </div>
+        <div className="RegisterPage-container">
+            <div className="RegisterPage-header">
+                <h1>REGISTRO</h1>
+            </div>
+            <div className="RegisterPage-form">
+                {serverError && <div className="RegisterPage-server-error">{serverError}</div>}
+                
+                <div className="RegisterPage-form-group">
+                    <label className="RegisterPage-label">Nombre</label>
+                    <input 
+                        type="text" 
+                        className="RegisterPage-input" 
+                        value={name} 
+                        onChange={e => setName(e.target.value)} 
+                    />
+                    {nameError && <div className="RegisterPage-error">{nameError}</div>}
+                </div>
+                
+                <div className="RegisterPage-form-group">
+                    <label className="RegisterPage-label">Email</label>
+                    <input 
+                        type="email" 
+                        className="RegisterPage-input" 
+                        value={email} 
+                        onChange={e => setEmail(e.target.value)} 
+                    />
+                    {emailError && <div className="RegisterPage-error">{emailError}</div>}
+                </div>
+                
+                <div className="RegisterPage-form-group">
+                    <label className="RegisterPage-label">Contraseña</label>
+                    <input 
+                        type="password" 
+                        className="RegisterPage-input" 
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)} 
+                    />
+                    {passwordError && <div className="RegisterPage-error">{passwordError}</div>}
+                </div>
+                
+                <div className="RegisterPage-form-group">
+                    <label className="RegisterPage-label">Confirmar contraseña</label>
+                    <input 
+                        type="password" 
+                        className="RegisterPage-input" 
+                        value={confirmPassword} 
+                        onChange={e => setConfirmPassword(e.target.value)} 
+                    />
+                    {confirmPasswordError && <div className="RegisterPage-error">{confirmPasswordError}</div>}
+                </div>
+                
+                <div className="RegisterPage-checkbox-group">
+                    <label className="RegisterPage-checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            className="RegisterPage-checkbox" 
+                            checked={agree} 
+                            onChange={e => setAgree(e.target.checked)} 
+                        />
+                        <span className="RegisterPage-checkbox-text">
+                            Acepto los <Link to={""} className="RegisterPage-link">Términos y Condiciones</Link>
+                        </span>
+                    </label>
+                    {agreeError && <div className="RegisterPage-error">{agreeError}</div>}
+                </div>
+                
+                <div className="RegisterPage-links">
+                    <div className="RegisterPage-link-item">
+                        <span>¿Ya tienes cuenta? </span>
+                        <Link to={"../"} className="RegisterPage-link">Inicia sesión aquí</Link>
                     </div>
                 </div>
-            </form>
+                
+                <div className="RegisterPage-button-container">
+                    <button 
+                        type="button" 
+                        className="RegisterPage-button" 
+                        onClick={handleRegister}
+                    >
+                        REGISTRARSE
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }

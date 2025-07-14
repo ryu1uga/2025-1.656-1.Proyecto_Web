@@ -1,5 +1,5 @@
 /* Contenedor principal */
-.GamePage-container {
+.NewPage-container {
     min-height: 100vh;
     background-color: #e5e7eb;
     padding: 0;
@@ -7,7 +7,7 @@
 }
 
 /* Header */
-.GamePage-header {
+.NewPage-header {
     background-color: #2c4a6b;
     color: white;
     text-align: center;
@@ -16,7 +16,7 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-.GamePage-title {
+.NewPage-title {
     font-size: 3rem;
     font-weight: bold;
     margin: 0;
@@ -24,14 +24,14 @@
 }
 
 /* Contenido principal */
-.GamePage-content {
+.NewPage-content {
     padding: 30px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Botón Add Game */
-.GamePage-add-button {
+/* Botón Add News */
+.NewPage-add-button {
     background-color: #2c4a6b;
     color: white;
     border: none;
@@ -45,22 +45,22 @@
     transition: background-color 0.3s ease;
 }
 
-.GamePage-add-button:hover {
+.NewPage-add-button:hover {
     background-color: #3a5a7a;
     color: white;
     text-decoration: none;
 }
 
-/* Mensaje cuando no hay juegos */
-.GamePage-no-games {
+/* Mensaje cuando no hay noticias */
+.NewPage-no-news {
     text-align: center;
     color: #666;
     font-size: 1.5rem;
     margin-top: 100px;
 }
 
-/* Tarjetas de juegos */
-.GamePage-game-card {
+/* Tarjetas de noticias */
+.NewPage-news-card {
     background-color: #d1d5db;
     border: 1px solid #9ca3af;
     border-radius: 5px;
@@ -69,55 +69,53 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.GamePage-game-info {
+.NewPage-news-info {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.GamePage-game-details {
+.NewPage-news-details {
     flex: 1;
 }
 
-.GamePage-game-name {
+.NewPage-news-name {
     font-size: 1.3rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 8px;
 }
 
-.GamePage-game-description {
+.NewPage-news-description {
     color: #666;
     margin-bottom: 10px;
     font-size: 1rem;
 }
 
-.GamePage-game-stats {
+.NewPage-news-stats {
     color: #666;
     font-size: 0.9rem;
 }
 
-.GamePage-game-stats .GamePage-photo-link,
-.GamePage-game-stats .GamePage-trailer-link {
+.NewPage-news-stats .NewPage-photo-link {
     color: #dc2626;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.GamePage-game-stats .GamePage-photo-link:hover,
-.GamePage-game-stats .GamePage-trailer-link:hover {
+.NewPage-news-stats .NewPage-photo-link:hover {
     color: #b91c1c;
 }
 
 /* Botones de acción */
-.GamePage-actions {
+.NewPage-actions {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-left: 20px;
 }
 
-.GamePage-action-button {
+.NewPage-action-button {
     padding: 8px 20px;
     border: none;
     border-radius: 4px;
@@ -130,50 +128,50 @@
     min-width: 80px;
 }
 
-.GamePage-details-button {
+.NewPage-details-button {
     background-color: #2c4a6b;
     color: white;
 }
 
-.GamePage-details-button:hover {
+.NewPage-details-button:hover {
     background-color: #3a5a7a;
     color: white;
     text-decoration: none;
 }
 
-.GamePage-edit-button {
+.NewPage-edit-button {
     background-color: #0891b2;
     color: white;
 }
 
-.GamePage-edit-button:hover {
+.NewPage-edit-button:hover {
     background-color: #0e7490;
     color: white;
     text-decoration: none;
 }
 
-.GamePage-delete-button {
+.NewPage-delete-button {
     background-color: #dc2626;
     color: white;
 }
 
-.GamePage-delete-button:hover {
+.NewPage-delete-button:hover {
     background-color: #b91c1c;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .GamePage-game-info {
+    .NewPage-news-info {
         flex-direction: column;
     }
     
-    .GamePage-actions {
+    .NewPage-actions {
         flex-direction: row;
         margin-left: 0;
         margin-top: 15px;
     }
     
-    .GamePage-title {
+    .NewPage-title {
         font-size: 2rem;
     }
 }

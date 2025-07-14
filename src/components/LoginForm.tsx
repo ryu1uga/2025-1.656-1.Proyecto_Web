@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { API_URL } from "../main"
 
 interface LoginFormProps {
-    enviar: (username: string, email: string, password: string, usertype: number, state: number) => void
+    enviar: (id: number, username: string, email: string, password: string, usertype: number, state: number) => void
 }
 
 const LoginForm = (props: LoginFormProps) => {
@@ -59,51 +59,71 @@ const LoginForm = (props: LoginFormProps) => {
                 } else if (json.data === "Invalid password") {
                     setPasswordError("Incorrect password.")
                 } else {
-                    alert("Unknown login error")
+                    console.log("Unknown login error")
                 }
                 return
             }
 
-            props.enviar(json.data.username, json.data.email, json.data.token, json.data.usertype, json.data.state)
+            props.enviar(json.data.id, json.data.username, json.data.email, json.data.token, json.data.usertype, json.data.state)
 
         } catch (error) {
             console.error("Error during login:", error)
-            alert("Error connecting to the server.")
         }
     }
 
-    return <div>
-        <form>
-            <div className="row">
-                <div className="col-12 mx-auto form-container">
-                    <h1>Login</h1>
-                    <div className="mb-3">
-                        <label className="form-label">Email address</label>
-                        <input type="email" className="form-control" value={email} onChange={emailOnChange} />
-                        <div className="form-text text-danger">{emailError}</div>
+    return (
+        <div className="LoginPage-container">
+            <div className="LoginPage-header">
+                <h1>INICIO DE SESIÓN</h1>
+            </div>
+            <div className="LoginPage-form">
+                <div className="LoginPage-form-group">
+                    <label className="LoginPage-label">Email</label>
+                    <input 
+                        type="email" 
+                        className="LoginPage-input" 
+                        value={email} 
+                        onChange={emailOnChange}
+                        placeholder=""
+                    />
+                    {emailError && <div className="LoginPage-error">{emailError}</div>}
+                </div>
+                
+                <div className="LoginPage-form-group">
+                    <label className="LoginPage-label">Contraseña</label>
+                    <input 
+                        type="password" 
+                        className="LoginPage-input" 
+                        value={password} 
+                        onChange={passwordOnChange}
+                        placeholder=""
+                    />
+                    {passwordError && <div className="LoginPage-error">{passwordError}</div>}
+                </div>
+                
+                <div className="LoginPage-links">
+                    <div className="LoginPage-link-item">
+                        <span>¿Olvidaste tu contraseña? </span>
+                        <Link to={"../user/reset"} className="LoginPage-link">Click here</Link>
                     </div>
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input type="password" className="form-control" value={password} onChange={passwordOnChange} />
-                        <div className="form-text text-danger">{passwordError}</div>
-                    </div>
-                    <div className="col-12 mx-auto form-container mb-3">
-                        <span>Forgot your password? </span>
-                        <Link to={"../user/reset"}>Click here</Link>
-                    </div>
-                    <div className="col-12 mx-auto form-container mb-3">
-                        <span>You're not our member yet? </span>
-                        <Link to={"../register"}>Register here</Link>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-primary" onClick={login}>
-                            LOGIN
-                        </button>
+                    <div className="LoginPage-link-item">
+                        <span>¿Aún no eres miembro? </span>
+                        <Link to={"../register"} className="LoginPage-link">Register here</Link>
                     </div>
                 </div>
+                
+                <div className="LoginPage-button-container">
+                    <button 
+                        type="button" 
+                        className="LoginPage-button" 
+                        onClick={login}
+                    >
+                        INGRESAR
+                    </button>
+                </div>
             </div>
-        </form>
-    </div>
+        </div>
+    )
 }
 
 export default LoginForm

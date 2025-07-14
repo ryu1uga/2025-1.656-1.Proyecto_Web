@@ -18,6 +18,10 @@ const HomePage = () => {
   const [mostrarCarrito, setMostrarCarrito] = useState<boolean>(false)
   const [searchParams] = useSearchParams();
   const busqueda = searchParams.get("busqueda")?.toLowerCase() || "";
+  console.log("Buscando:", busqueda);
+
+  const user = JSON.parse(localStorage.getItem("usuario") || "{}");
+  const userId = user?.id;
 
   const ObtenerJuegos = async () => {
     const response = await fetch(`${API_URL}/games`)
@@ -66,6 +70,31 @@ const HomePage = () => {
     list = JSON.parse(ListaN)
   }
 
+  const ObtenerCarritoBD = async () => {
+    if (!userId) return;
+
+    try {
+      const response = await fetch(`${API_URL}/cart?userId=${userId}`);
+      const data = await response.json();
+
+      if (Array.isArray(data.carrito)) {
+        setCarrito(data.carrito);
+      } else {
+        console.warn("Carrito no válido o vacío en la BD");
+      }
+    } catch (error) {
+      console.error("Error al obtener carrito desde la BD:", error);
+    }
+  };
+  
+  useEffect(() => { ObtenerCarritoBD() }, []);
+
+  useEffect(() => {
+    const carritoGuardado = sessionStorage.getItem("carrito");
+    if (carritoGuardado) {
+      setCarrito(JSON.parse(carritoGuardado));
+    }
+  }, []);
   
   const ordenarPorVentas = async () => {
     try {
@@ -85,6 +114,7 @@ const HomePage = () => {
     }
 };
 
+  
 
   const promedio = (ratings: { rating: number }[]) => 
   ratings.reduce((sum, r) => sum + r.rating, 0) / (ratings.length || 1)
@@ -130,11 +160,11 @@ const HomePage = () => {
           <div className="content-column">
             <HomeSlides news = {news} />
             <HomeList
-            juegos={busqueda
-              ? juegos.filter(j => j.name.toLowerCase().includes(busqueda))
-              : juegos}
+              juegos={busqueda
+                ? juegos.filter(j => j.name.toLowerCase().includes(busqueda))
+                : juegos}
             />
-            {mostrarCarrito && <CartGames data={carrito} />}
+            {mostrarCarrito && <CartGames data={carrito} actualizarCarrito={setCarrito}/>}
           </div>
 
       </div>

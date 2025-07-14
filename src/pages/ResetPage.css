@@ -1,13 +1,169 @@
-form
-{
-    background-color: lightblue;
-    border-radius: 30px;
-    margin: 20%;
-    margin-top: 10%;
-    padding: 5%;
+/* Fondo de la página */
+body {
+    background-image: url('./background-register.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
 }
 
-h1
-{
+/* Container principal */
+.ResetPage-container {
+    max-width: 800px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 0;
+    overflow: hidden;
+}
+
+/* Header con el título */
+.ResetPage-header {
+    background: linear-gradient(135deg, rgba(44, 94, 120, 0.95), rgba(74, 148, 184, 0.95));
+    padding: 30px;
     text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.ResetPage-header h1 {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+/* Contenedor del formulario */
+.ResetPage-form {
+    background: linear-gradient(135deg, rgba(30, 58, 82, 0.95), rgba(44, 94, 120, 0.95));
+    padding: 50px;
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+/* Mensaje de error del servidor */
+.ResetPage-server-error {
+    background-color: rgba(255, 107, 107, 0.2);
+    border: 1px solid #ff6b6b;
+    color: #ff6b6b;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* Mensaje de éxito */
+.ResetPage-success {
+    background-color: rgba(76, 175, 80, 0.2);
+    border: 1px solid #4caf50;
+    color: #4caf50;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* Grupos de campos */
+.ResetPage-form-group {
+    margin-bottom: 25px;
+}
+
+.ResetPage-label {
+    display: block;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.ResetPage-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.ResetPage-input:focus {
+    outline: none;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(74, 148, 184, 0.3);
+}
+
+/* Mensajes de error */
+.ResetPage-error {
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* Contenedor del botón */
+.ResetPage-button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.ResetPage-button {
+    background: linear-gradient(135deg, #4a94b8, #6bb6ff);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.ResetPage-button:hover {
+    background: linear-gradient(135deg, #5aa4c8, #7bc6ff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 148, 184, 0.4);
+}
+
+.ResetPage-button:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ResetPage-container {
+        margin: 20px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        width: calc(100% - 40px);
+    }
+    
+    .ResetPage-form {
+        padding: 40px 30px;
+    }
+    
+    .ResetPage-header {
+        padding: 25px;
+    }
+    
+    .ResetPage-header h1 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ResetPage-container {
+        width: calc(100% - 20px);
+        margin: 10px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+    
+    .ResetPage-form {
+        padding: 30px 20px;
+    }
 }
