@@ -1,5 +1,6 @@
-import type { Button } from "bootstrap";
+
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface HomeNavbarProps {
   OrdenarVentas: () => void
@@ -11,6 +12,13 @@ interface HomeNavbarProps {
 
 const HomeNavbar = (props: HomeNavbarProps) => {
     const navigate = useNavigate ();
+    const [busqueda, setBusqueda] = useState("");
+
+    const handleBuscar = () => {
+    if (busqueda.trim()) {
+        navigate(`/user/catalogo?busqueda=${encodeURIComponent(busqueda)}`);
+        }
+    };
     return (<nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="">LP Store</a>
@@ -22,13 +30,13 @@ const HomeNavbar = (props: HomeNavbarProps) => {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link btn btn-primary" >Home</a>
+                                <Link to="/" className="nav-link btn btn-primary">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn btn-primary" >Catálogo</a>
+                                <Link to="/user/catalogo" className="nav-link btn btn-primary">Catálogo</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn btn-primary" type="button" onClick={()=>navigate("/user/edit")}>Configuración</a>
+                                <button className="nav-link btn btn-primary" onClick={() => navigate("/user/edit")}>Configuración</button>
                             </li>
                             <li className="nav-item">
                                 <a id="BotVentas" className="nav-link btn btn-primary" onClick={props.OrdenarVentas} type="button" >Más Vendidos</a>
@@ -43,19 +51,21 @@ const HomeNavbar = (props: HomeNavbarProps) => {
 
                         <div id="searchbar" className="form-inline d-flex me-3" role="search">
                             <input
-                            className="form-control me-2"
-                            type="search"
-                            placeholder="Buscar juego..."
-                            aria-label="Buscar"
+                                className="form-control me-2"
+                                type="search"
+                                placeholder="Buscar juego..."
+                                value={busqueda}
+                                onChange={(e) => setBusqueda(e.target.value)}
+                                aria-label="Buscar"
                             />
-                            <button className="btn btn-outline-light" type="submit">
+                            <button className="btn btn-outline-light" type="button" onClick={handleBuscar}>
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>
                         <button 
                         className="btn btn-outline-light" 
                         type="button" 
-                        onClick={() => navigate("/user/carrito")}
+                        onClick={props.toggleCarrito}
                         >
                         <i className="fas fa-shopping-cart me-1"></i> Carrito
                         </button>

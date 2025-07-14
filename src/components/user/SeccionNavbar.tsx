@@ -4,6 +4,7 @@ interface SeccionNavbarProps {
   OrdenarVentas?: () => void; // Hacer opcional con ?
   OrdenarValoracion?: () => void; // Hacer opcional con ?
   Restablecer?: () => void; // Hacer opcional con ?
+  toggleCarrito?: () => void // NUEVA PROP
 }
 
 export const SeccionNavbar = (props: SeccionNavbarProps) => {
@@ -50,7 +51,7 @@ export const SeccionNavbar = (props: SeccionNavbarProps) => {
           <button
             className="btn btn-outline-light"
             type="button"
-            onClick={() => navigate("/user/carrito")}
+            onClick={props.toggleCarrito}
           >
             <i className="fas fa-shopping-cart"></i> Carrito
           </button>

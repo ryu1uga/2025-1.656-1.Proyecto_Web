@@ -5,11 +5,14 @@ import "./LoginPage.css"
 const LoginPage = () => {
 
     const navigate = useNavigate();
-    const login = (email: string, token: string, usertype: number, state: number) => {
+    const login = (username: string, email: string, token: string, usertype: number, state: number) => {
+        console.log("Username:", username)
         console.log("Email:", email)
         console.log("Token:", token)
         console.log("UserType:", usertype)
         console.log("state:", state)
+
+        sessionStorage.setItem("user", username)
         if (usertype == 0)
         {
             navigate("/user/home");

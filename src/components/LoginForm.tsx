@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { API_URL } from "../main"
 
 interface LoginFormProps {
-    enviar: (email: string, password: string, usertype: number, state: number) => void
+    enviar: (username: string, email: string, password: string, usertype: number, state: number) => void
 }
 
 const LoginForm = (props: LoginFormProps) => {
@@ -64,7 +64,7 @@ const LoginForm = (props: LoginFormProps) => {
                 return
             }
 
-            props.enviar(json.data.email, json.data.token, json.data.usertype, json.data.state)
+            props.enviar(json.data.username, json.data.email, json.data.token, json.data.usertype, json.data.state)
 
         } catch (error) {
             console.error("Error during login:", error)

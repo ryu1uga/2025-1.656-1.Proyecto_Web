@@ -7,14 +7,17 @@ import type { news } from "../../components/user/HomeNews"
 import HomeNavbar from "../../components/user/HomeNavbar"
 import HomeSlides from "../../components/user/HomeSlides"
 import HomeList from "../../components/user/HomeList"
-import CartGames, { type Games } from "../../components/user/CartGames"
+import CartGames from "../../components/user/CartGames"
+import { useSearchParams } from "react-router-dom";
 
 const HomePage = () => {
   
   const [juegos, setjuegos] = useState<juego[]>([])
+  const [carrito, setCarrito] = useState<juego[]>([])
   const [news, setnews] = useState<news[]>([])
-  const [carrito, setCarrito] = useState<Games[]>([])
   const [mostrarCarrito, setMostrarCarrito] = useState<boolean>(false)
+  const [searchParams] = useSearchParams();
+  const busqueda = searchParams.get("busqueda")?.toLowerCase() || "";
 
   const ObtenerJuegos = async () => {
     const response = await fetch(`${API_URL}/games`)
@@ -83,7 +86,7 @@ const HomePage = () => {
 };
 
 
-  const promedio = (ratings: { rating: number }[]) =>
+  const promedio = (ratings: { rating: number }[]) => 
   ratings.reduce((sum, r) => sum + r.rating, 0) / (ratings.length || 1)
 
   const ordenarPorValoracion = async() => {
@@ -126,7 +129,11 @@ const HomePage = () => {
 
           <div className="content-column">
             <HomeSlides news = {news} />
-            <HomeList juegos={juegos} />
+            <HomeList
+            juegos={busqueda
+              ? juegos.filter(j => j.name.toLowerCase().includes(busqueda))
+              : juegos}
+            />
             {mostrarCarrito && <CartGames data={carrito} />}
           </div>
 

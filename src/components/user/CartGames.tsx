@@ -1,25 +1,20 @@
 import { useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
-
-export interface Games { 
-  id : number
-  name : string
-  image : string
-}
+import type { juego } from "../../components/user/HomeJuego"
 
 interface ListGames {
-  data : Games[]
+  data : juego[]
 }
 
 const CartGames = (props : ListGames) => { 
   const navigate = useNavigate()
   const saveCart = localStorage.getItem("guardar-carrito")
-  const initialCart: Games[] = saveCart ? JSON.parse(saveCart) : props.data
+  const initialCart: juego[] = saveCart ? JSON.parse(saveCart) : props.data
 
-  const [cart, setCart] = useState<Games[]>(initialCart) 
+  const [cart, setCart] = useState<juego[]>(initialCart) 
 
   const removeGame = (id : number) => {
-    const updateCart = cart.filter((elemento) => elemento.id !== id)
+    const updateCart = cart.filter((juegos) => juegos.id !== id)
     setCart(updateCart)
     localStorage.setItem("guardar-carrito", JSON.stringify(updateCart))
   }
@@ -33,13 +28,13 @@ const CartGames = (props : ListGames) => {
     <h3>Shopping Cart</h3>
     <div className="card-group-style">
       {
-        cart.map((elemento: Games) => {
-          return <div id="Card-s-c" className="card-style position-relative" key={elemento.id}>
-            <button type="button" className="btn-close position-absolute top-0 end-0 m-1" aria-label="Close" onClick={() => removeGame(elemento.id)}></button>
+        cart.map((juegos) => {
+          return <div id="Card-s-c" className="card-style position-relative" key={juegos.id}>
+            <button type="button" className="btn-close position-absolute top-0 end-0 m-1" aria-label="Close" onClick={() => removeGame(juegos.id)}></button>
             <div id ="img-juego"className="game-img d-flex align-items-center justify-content-center">
-              <img src={elemento.image} alt={elemento.name} className="img-fluid" />
+              <img src={`${juegos.attachment.url}`} alt={juegos.name} className="img-fluid" />
             </div>
-            <p id="texto-C"className="texto">{elemento.name}</p>
+            <p id="texto-C"className="texto">{juegos.name}</p>
           </div>
         })
       }

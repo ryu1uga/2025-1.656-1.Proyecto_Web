@@ -72,25 +72,39 @@ const JuegoDetalle = () => {
     setComments(comments.map(comment => comment.id === id ? { ...comment, dislikes: comment.dislikes + 1 } : comment));
   };
 
-  const handleBuyNow = () => {
+const handleBuyNow = () => {
   const juegoCarrito = {
     id: juego.id,
     name: juego.name,
-    image: `/imagenes/juegos_carrito/${juego.name.toLowerCase().replace(/\s+/g, "")}.jpg` // Ajusta esta ruta si es necesario
+    price: juego.price,
+    description: juego.description,
+    company: juego.company,
+    category: juego.category,
+    sells: juego.sells,
+    ratings: juego.ratings,
+    images: juego.images,
+    trailers: juego.trailers,
+    attachment: juego.images[0] || {
+      id: 0,
+      url: "https://via.placeholder.com/300x200?text=Sin+Imagen",
+      createdAt: "",
+      updatedAt: "",
+      gameId: juego.id
+    }
   };
 
-  // Obtener carrito actual
   const carritoActual = localStorage.getItem("guardar-carrito");
   const carrito: typeof juegoCarrito[] = carritoActual ? JSON.parse(carritoActual) : [];
 
-  // Verifica si ya está en el carrito
   const yaExiste = carrito.some((item) => item.id === juegoCarrito.id);
   if (!yaExiste) {
     const nuevoCarrito = [...carrito, juegoCarrito];
     localStorage.setItem("guardar-carrito", JSON.stringify(nuevoCarrito));
   }
 
+  navigate("/user/carrito");
 };
+
 
 
   const averageRating = comments.length > 0
