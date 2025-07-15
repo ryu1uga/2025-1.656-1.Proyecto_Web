@@ -55,8 +55,7 @@ const CartGames = ({ data, actualizarCarrito }: ListGames) => {
 
   // Confirmar orden y limpiar carrito
   const handleConfirmOrder = async () => {
-    const user = JSON.parse(localStorage.getItem("usuario") || "{}");
-    const userId = user?.id;
+    const userId = JSON.parse(sessionStorage.getItem("userId") || "{}");
 
     if (!userId) {
       console.log("Debe iniciar sesión para confirmar la orden.");
