@@ -3,7 +3,7 @@ import "./CartPage.css";
 
 const CartPage = () => {
   return <div>
-    <CartGames></CartGames> 
+    <CartGames data={[]} actualizarCarrito={() => {}}></CartGames> 
     
 </div>
 }

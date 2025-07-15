@@ -22,8 +22,6 @@ const HomePage = () => {
   console.log("Buscando:", busqueda);
 
   const location = useLocation();
-  const user = JSON.parse(localStorage.getItem("usuario") || "{}");
-  const userId = user?.id;
 
   const ObtenerJuegos = async () => {
     const response = await fetch(`${API_URL}/games`)
@@ -62,15 +60,6 @@ const HomePage = () => {
     }
   }
   useEffect(() => {ObetenerNews()}, [])
-  
-  const ListaN = sessionStorage.getItem("newslist")
-
-  let list: news[]
-  if (ListaN == null) {
-    list = []
-  } else {
-    list = JSON.parse(ListaN)
-  }
 
   /*const ObtenerCarritoBD = async () => {
     if (!userId) return;
@@ -101,6 +90,7 @@ const HomePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
+
 
   useEffect(() => {
     sessionStorage.setItem("carrito", JSON.stringify(carrito));

@@ -1,4 +1,3 @@
-import { Navigate, useNavigate } from "react-router-dom";
 import type { news } from "./HomeNews";
 import "./HomeSlides.css";
 
@@ -7,8 +6,6 @@ interface HomeSlidesProps {
 };
 
 const HomeSlides = ({ news }: HomeSlidesProps) => {
-    const navigate = useNavigate();
-
     return (
         <div id="Carouseljuegos" className="carousel slide position-relative bg-transparent text-white text-center p-2 rounded" data-bs-ride="carousel">
             <div className="carousel-inner">

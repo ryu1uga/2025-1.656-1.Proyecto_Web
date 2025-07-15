@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import type { juego, Comment } from '../../components/user/HomeJuego';
 import { SeccionNavbar } from "../../components/user/SeccionNavbar";
 import "./JuegoDetalle.css";
@@ -7,7 +7,6 @@ import { API_URL } from "../../main";
 import CartGames from "../../components/user/CartGames";
 
 const JuegoDetalle = () => {
-  const navigate = useNavigate();
   const { state } = useLocation();
   const { juego }: { juego: juego } = state || {
     juego: {

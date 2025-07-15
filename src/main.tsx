@@ -30,7 +30,7 @@ export const API_URL = import.meta.env.VITE_API_URL;
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter /*basename='/2025-1.656-1.Proyecto_Web'*/>
+    <BrowserRouter basename='/2025-1.656-1.Proyecto_Web'>
       <Routes>
         <Route path="/" element={ <LoginPage /> } />
         <Route path="/register" element={ <RegisterPage /> } />

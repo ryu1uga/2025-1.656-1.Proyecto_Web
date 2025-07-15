@@ -30,14 +30,6 @@ const GameFilters = ({ onFiltrar }: Props) => {
   };
 
   const aplicarFiltros = () => {
-    const categoriasSeleccionadas = Object.entries(categorias)
-      .filter(([_, activo]) => activo)
-      .map(([nombre]) => nombre);
-
-    const plataformasSeleccionadas = Object.entries(plataformas)
-      .filter(([_, activo]) => activo)
-      .map(([nombre]) => nombre);
-      
     onFiltrar({
       priceMin: priceRange.min,
       priceMax: priceRange.max,

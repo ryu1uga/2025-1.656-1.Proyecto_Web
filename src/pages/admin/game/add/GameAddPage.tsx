@@ -9,7 +9,6 @@ const GameAddPage = () => {
     const [description, setDescription] = useState<string>("")
     const [price, setPrice] = useState<number>(0)
     const [company, setCompany] = useState<string>("")
-    const [categoryName, setCategoryName] = useState<string>("")
     const [categoryId, setCategoryId] = useState<number | "">("")
     const [attachmentUrl, setAttachmentUrl] = useState<string>("")
     const [photos, setPhotos] = useState<string[]>([])

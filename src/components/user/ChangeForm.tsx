@@ -16,7 +16,6 @@ const ChangeForm = () => {
   const validateForm = (): boolean => {
     let valid = true
     setFirstNameError("")
-    setLastNameError("")
     setEmailError("")
     setServerError("")
     setSuccessMessage("")

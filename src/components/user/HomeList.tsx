@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { juego } from "./HomeJuego";
 import "./HomeList.css";
 
