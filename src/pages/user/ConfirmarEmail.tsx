@@ -59,7 +59,7 @@ const ConfirmarEmail = () => {
 
             const data = await resp.json()
             if (data.success) {
-                navigate("/dashboard")
+                navigate("/user/confirmated")
             } else {
                 setGeneralError(data.data || "Incorrect code")
             }
@@ -116,91 +116,91 @@ const ConfirmarEmail = () => {
     }
 
     return (
-        <div className="ConfEmail-container">
-            <div className="ConfEmail-header">
-                <h1 className="ConfEmail-title">CONFIRMATION</h1>
-            </div>
-            
-            <div className="ConfEmail-content">
-                <div className="ConfEmail-card">
-                    <p className="ConfEmail-description">
-                        We have sent you an email with a verification code to: "
-                        <span className="ConfEmail-email">{email}</span>"
-                    </p>
-                    
-                    <div className="ConfEmail-form">
-                        <label className="ConfEmail-label">
-                            Enter the confirmation code:
-                        </label>
+            <div className="ConfEmail-container">
+                <div className="ConfEmail-header">
+                    <h1 className="ConfEmail-title">CONFIRMATION</h1>
+                </div>
+                
+                <div className="ConfEmail-content">
+                    <div className="ConfEmail-card">
+                        <p className="ConfEmail-description">
+                            We have sent you an email with a verification code to: "
+                            <span className="ConfEmail-email">{email}</span>"
+                        </p>
                         
-                        <div className="ConfEmail-input-container">
-                            <input
-                                type="text"
-                                className={`ConfEmail-input ${codeError ? 'ConfEmail-input-error' : ''}`}
-                                value={code}
-                                onChange={codeOnChange}
-                                onKeyPress={handleKeyPress}
-                                placeholder="123456"
-                                maxLength={6}
-                                disabled={isVerifying}
-                            />
-                            {codeError && (
-                                <div className="ConfEmail-error">{codeError}</div>
-                            )}
-                            {generalError && (
-                                <div className="ConfEmail-error">{generalError}</div>
+                        <div className="ConfEmail-form">
+                            <label className="ConfEmail-label">
+                                Enter the confirmation code:
+                            </label>
+                            
+                            <div className="ConfEmail-input-container">
+                                <input
+                                    type="text"
+                                    className={`ConfEmail-input ${codeError ? 'ConfEmail-input-error' : ''}`}
+                                    value={code}
+                                    onChange={codeOnChange}
+                                    onKeyPress={handleKeyPress}
+                                    placeholder="123456"
+                                    maxLength={6}
+                                    disabled={isVerifying}
+                                />
+                                {codeError && (
+                                    <div className="ConfEmail-error">{codeError}</div>
+                                )}
+                                {generalError && (
+                                    <div className="ConfEmail-error">{generalError}</div>
+                                )}
+                            </div>
+                            
+                            <button 
+                                type="button" 
+                                className="ConfEmail-verify-btn" 
+                                onClick={handleVerify}
+                                disabled={isVerifying || code.length !== 6}
+                            >
+                                {isVerifying ? (
+                                    <>
+                                        <span className="ConfEmail-spinner"></span>
+                                        Verifying...
+                                    </>
+                                ) : (
+                                    'VERIFY CODE'
+                                )}
+                            </button>
+                        </div>
+                        
+                        <div className="ConfEmail-resend">
+                            <span>Didn't receive the code? </span>
+                            <button
+                                type="button"
+                                className="ConfEmail-resend-btn"
+                                onClick={handleResend}
+                                disabled={isResending}
+                            >
+                                {isResending ? 'Resending...' : 'Resend code'}
+                            </button>
+                            
+                            {resendMessage && (
+                                <div className="ConfEmail-success">
+                                    A new code has been sent to your email.
+                                </div>
                             )}
                         </div>
                         
-                        <button 
-                            type="button" 
-                            className="ConfEmail-verify-btn" 
-                            onClick={handleVerify}
-                            disabled={isVerifying || code.length !== 6}
-                        >
-                            {isVerifying ? (
-                                <>
-                                    <span className="ConfEmail-spinner"></span>
-                                    Verifying...
-                                </>
-                            ) : (
-                                'VERIFY CODE'
-                            )}
-                        </button>
-                    </div>
-                    
-                    <div className="ConfEmail-resend">
-                        <span>Didn't receive the code? </span>
-                        <button
-                            type="button"
-                            className="ConfEmail-resend-btn"
-                            onClick={handleResend}
-                            disabled={isResending}
-                        >
-                            {isResending ? 'Resending...' : 'Resend code'}
-                        </button>
-                        
-                        {resendMessage && (
-                            <div className="ConfEmail-success">
-                                A new code has been sent to your email.
-                            </div>
-                        )}
-                    </div>
-                    
-                    <div className="ConfEmail-actions">
-                        <button 
-                            type="button" 
-                            className="ConfEmail-back-btn" 
-                            onClick={handleVolver}
-                            disabled={isVerifying}
-                        >
-                            Back
-                        </button>
+                        <div className="ConfEmail-actions">
+                            <button 
+                                type="button" 
+                                className="ConfEmail-back-btn" 
+                                onClick={handleVolver}
+                                disabled={isVerifying}
+                            >
+                                Back
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
 }
 
 export default ConfirmarEmail

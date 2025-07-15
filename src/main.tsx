@@ -22,12 +22,15 @@ import NewsPage from './pages/admin/news/NewsPage.tsx'
 import NewsAddPage from './pages/admin/news/add/NewsAddPage.tsx';
 import NewsEditPage from './pages/admin/news/edit/NewsEditPage.tsx'
 import Catalogo from './pages/user/CatalogoPage.tsx';
+import GameSearch from './pages/admin/filter/GameFilter.tsx'
+import ConfirmatedEmail from './pages/user/ConfirmadoEmail.tsx'
+import NewsDetails from './pages/admin/news/details/NewsDetailsPage.tsx'
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter /*basename='/2025-1.656-1.Proyecto_Web'*/>
       <Routes>
         <Route path="/" element={ <LoginPage /> } />
         <Route path="/register" element={ <RegisterPage /> } />
@@ -48,7 +51,9 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/admin/news" element={ <NewsPage /> } />
         <Route path="/admin/news/add" element={ <NewsAddPage/>} />
         <Route path="/admin/news/edit/:id" element={<NewsEditPage />} />
-        
+        <Route path="/admin/search" element={<GameSearch />} />
+        <Route path="/user/confirmated" element={<ConfirmatedEmail />} />
+        <Route path="/admin/news/details/:id" element={<NewsDetails />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

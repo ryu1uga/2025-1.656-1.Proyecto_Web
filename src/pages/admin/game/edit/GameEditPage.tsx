@@ -15,7 +15,7 @@ const GameEditPage = () => {
     const [platforms, setPlatforms] = useState(parsed?.plataformas || "");
 
     if (!parsed) {
-        return <div className="container mt-4">No game selected to edit.</div>;
+        return <div className="GameEdit-container">No game selected to edit.</div>;
     }
 
     const handleSave = async () => {
@@ -25,15 +25,13 @@ const GameEditPage = () => {
             description: description.trim(),
             images,
             trailers
-        }
+        };
 
-        // Actualiza en sessionStorage local
         const juegosStr = sessionStorage.getItem("listaJuegos")
         const juegos: juego[] = juegosStr ? JSON.parse(juegosStr) : []
         const actualizados = juegos.map((g) => g.id === parsed.id ? updatedGame : g)
         sessionStorage.setItem("listaJuegos", JSON.stringify(actualizados))
 
-        // Actualiza en el backend
         try {
             const response = await fetch(`http://localhost:5050/games/${parsed.id}`, {
                 method: "PUT",
@@ -43,7 +41,7 @@ const GameEditPage = () => {
                     description: updatedGame.description,
                     company: updatedGame.company,
                     state: updatedGame.state,
-                    category: updatedGame.category.id, // ID numérico
+                    category: updatedGame.category.id,
                     plataformas: platforms,
                     images: updatedGame.images.map(img => img.url),
                     trailers: updatedGame.trailers?.map(tr => tr.url) ?? [],
@@ -105,38 +103,45 @@ const GameEditPage = () => {
     };
 
     return (
-        <div className="container mt-4">
-            <div className="card p-4">
-                <h1 id="title">Edit Game</h1>
+        <div className="GameEdit-container">
+            <div className="GameEdit-header">
+                <div className="GameEdit-header-content">
+                    <h1 className="GameEdit-title">Edit Game</h1>
+                </div>
+            </div>
+            <div className="GameEdit-content">
+                <div className="GameEdit-field">
+                    <label className="GameEdit-label">Game Name</label>
+                    <input
+                        className="GameEdit-input"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </div>
 
-                <label htmlFor="gameName" className="form-label">Game Name</label>
-                <input
-                    id="gameName"
-                    className="form-control mb-3"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
+                <div className="GameEdit-field">
+                    <label className="GameEdit-label">Description</label>
+                    <textarea
+                        className="GameEdit-textarea"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
 
-                <label htmlFor="gameDescription" className="form-label">Description</label>
-                <textarea
-                    id="gameDescription"
-                    className="form-control mb-4"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <label htmlFor="gamePlatforms" className="form-label">Platforms</label>
-                <input
-                    id="gamePlatforms"
-                    className="form-control mb-4"
-                    value={platforms}
-                    onChange={(e) => setPlatforms(e.target.value)}
-                    placeholder="e.g., PC, PS5, Xbox"
-                />
+                <div className="GameEdit-field">
+                    <label className="GameEdit-label">Platforms</label>
+                    <input
+                        className="GameEdit-input"
+                        value={platforms}
+                        onChange={(e) => setPlatforms(e.target.value)}
+                        placeholder="e.g., PC, PS5, Xbox"
+                    />
+                </div>
 
-                <h4 className="text-center">Gallery</h4>
-                <div className="d-flex justify-content-around flex-wrap mb-3">
+                <h2 className="GameEdit-photos-title">Gallery</h2>
+                <div className="GameEdit-photos-grid">
                     {images.map((image, index) => (
-                        <div key={index} className="d-flex flex-column align-items-center">
+                        <div key={index} className="text-center">
                             <img
                                 src={image.url}
                                 alt={`Image ${index + 1}`}
@@ -144,60 +149,71 @@ const GameEditPage = () => {
                                 style={{ width: "200px", objectFit: "cover" }}
                             />
                             <button
-                                className="btn btnGamePage btn-outline-danger mt-2"
+                                className="GameEdit-photo-btn"
                                 onClick={() => handleDeleteImage(index)}
                             >
-                                Delete Photo
+                                <div className="GameEdit-photo-btn-content">
+                                    <div className="GameEdit-photo-icon">❌</div>
+                                    <div className="GameEdit-photo-text">Delete Photo</div>
+                                </div>
                             </button>
                         </div>
                     ))}
                 </div>
-                <div className="d-flex justify-content-center mb-4">
-                    <button className="btn btnGamePage btn-outline-primary" onClick={handleAddImage}>
-                        Add Photo
+
+                <div className="GameEdit-photos-grid">
+                    <button className="GameEdit-photo-btn" onClick={handleAddImage}>
+                        <div className="GameEdit-photo-btn-content">
+                            <div className="GameEdit-photo-icon">📷</div>
+                            <div className="GameEdit-photo-text">Add Photo</div>
+                        </div>
                     </button>
                 </div>
 
-                <h4 className="text-center">Trailers</h4>
-                <div className="d-flex justify-content-around flex-wrap mb-3">
+                <h2 className="GameEdit-photos-title">Trailers</h2>
+                <div className="GameEdit-photos-grid">
                     {trailers.map((trailer, index) => (
-                        <div key={index} className="text-center m-2">
+                        <div key={index} className="text-center">
                             <p>Trailer {index + 1}</p>
                             <textarea
-                                className="form-control"
+                                className="GameEdit-textarea"
                                 value={trailer.url}
                                 onChange={(e) => handleTrailerChange(index, e.target.value)}
                             />
-                            <div className="mt-2 d-flex flex-wrap justify-content-center gap-2">
-                                <button
-                                    className="btn btnGamePage btn-outline-danger"
-                                    onClick={() => handleDeleteTrailer(index)}
-                                >
-                                    Delete Trailer
-                                </button>
-                            </div>
+                            <button
+                                className="GameEdit-photo-btn"
+                                onClick={() => handleDeleteTrailer(index)}
+                            >
+                                <div className="GameEdit-photo-btn-content">
+                                    <div className="GameEdit-photo-icon">❌</div>
+                                    <div className="GameEdit-photo-text">Delete Trailer</div>
+                                </div>
+                            </button>
                         </div>
                     ))}
                 </div>
 
-                <div className="d-flex justify-content-center mb-2">
-                    <button className="btn btnGamePage btn-outline-primary" onClick={handleAddTrailer}>
-                        Add Trailer
+                <div className="GameEdit-photos-grid">
+                    <button className="GameEdit-photo-btn" onClick={handleAddTrailer}>
+                        <div className="GameEdit-photo-btn-content">
+                            <div className="GameEdit-photo-icon">🎬</div>
+                            <div className="GameEdit-photo-text">Add Trailer</div>
+                        </div>
                     </button>
                 </div>
 
-                <div className="d-flex justify-content-center mb-2">
-                    <button className="btn btnGamePage btn-outline-success" onClick={handleSave}>
-                        Save Changes
-                    </button>
-                </div>
-
-                <div className="d-flex justify-content-center mb-2">
+                <div className="GameEdit-actions">
                     <button
-                        className="btn btnGamePage btn-outline-secondary"
+                        className="GameEdit-cancel-btn"
                         onClick={() => navigate("/admin/game")}
                     >
                         Discard Changes
+                    </button>
+                    <button
+                        className="GameEdit-submit-btn"
+                        onClick={handleSave}
+                    >
+                        Save Changes
                     </button>
                 </div>
             </div>

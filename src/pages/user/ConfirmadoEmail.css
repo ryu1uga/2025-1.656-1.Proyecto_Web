@@ -1,66 +1,106 @@
-body {
-  font-family: Arial, sans-serif;
+.ConfrmtdEmail-container {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f5f5f5;
+  flex-direction: column;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #2c5f7c, #f5f5f5);
 }
 
-.container {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.ConfrmtdEmail-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
-  width: 400px;
+  border: 1px solid #e0e0e0;
+  margin: auto;
 }
 
-.logo {
+.ConfrmtdEmail-title {
   font-size: 2rem;
-  margin-bottom: 20px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #2c5f7c, #1e4155);
+  padding: 1rem;
+  border-radius: 8px;
 }
 
-h1 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.message {
+.ConfrmtdEmail-message {
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 20px;
+  color: #555;
+  margin: 1.5rem 0;
   line-height: 1.5;
 }
 
-.btn-primary {
-  background-color: #007bff;
-  color: #ffffff;
+.ConfrmtdEmail-button {
+  background: linear-gradient(135deg, #2c5f7c, #1e4155);
+  color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
   cursor: pointer;
+  transition: all 0.3s ease;
   width: 100%;
-  margin-bottom: 10px;
+  max-width: 250px;
+  margin: 0 auto;
+  box-shadow: 0 2px 10px rgba(44, 95, 124, 0.3);
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
+.ConfrmtdEmail-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(44, 95, 124, 0.4);
 }
 
-.link-container {
-  margin-top: 10px;
+.ConfrmtdEmail-link-container {
+  margin-top: 1.5rem;
 }
 
-.link {
-  color: #007bff;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.link:hover {
+.ConfrmtdEmail-link {
+  color: #2c5f7c;
+  font-size: 0.95rem;
+  cursor: pointer;
   text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.ConfrmtdEmail-link:hover {
+  color: #1e4155;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .ConfrmtdEmail-title {
+    font-size: 1.75rem;
+    padding: 0.75rem;
+  }
+
+  .ConfrmtdEmail-card {
+    padding: 1.5rem;
+  }
+
+  .ConfrmtdEmail-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ConfrmtdEmail-title {
+    font-size: 1.5rem;
+  }
+
+  .ConfrmtdEmail-card {
+    padding: 1rem;
+  }
+
+  .ConfrmtdEmail-button {
+    font-size: 0.9rem;
+  }
 }

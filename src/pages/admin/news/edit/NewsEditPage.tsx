@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import "./NewsEditPage.css"
 import { API_URL } from "../../../../main"
 
@@ -12,20 +12,57 @@ interface News {
 
 const NewsEditPage = () => {
     const navigate = useNavigate()
-    const stored = sessionStorage.getItem("selectedNews")
-    const parsed: News | null = stored ? JSON.parse(stored) : null
-
-    const [name, setName] = useState(parsed?.name || "")
-    const [description, setDescription] = useState(parsed?.description || "")
-    const [photoUrl, setPhotoUrl] = useState(parsed?.photo || "")
+    const { id } = useParams<{ id: string }>()
+    
+    const [news, setNews] = useState<News | null>(null)
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [photoUrl, setPhotoUrl] = useState("")
     const [nameError, setNameError] = useState<string>("")
     const [descriptionError, setDescriptionError] = useState<string>("")
     const [generalError, setGeneralError] = useState<string>("")
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
-    if (!parsed) {
-        return <div className="NewsEdit-container mt-4">No news selected to edit.</div>
-    }
+    // Cargar la noticia desde la API usando el ID
+    useEffect(() => {
+        const fetchNews = async () => {
+            if (!id) {
+                setGeneralError("No news ID provided")
+                setIsLoading(false)
+                return
+            }
+
+            try {
+                setIsLoading(true)
+                const response = await fetch(`${API_URL}/news/${id}`)
+                const data = await response.json()
+
+                if (response.ok && data.success) {
+                    const newsData: News = {
+                        id: data.data.id,
+                        name: data.data.title || data.data.name,
+                        description: data.data.text || data.data.description,
+                        photo: data.data.attachment?.url || data.data.photo || ""
+                    }
+                    
+                    setNews(newsData)
+                    setName(newsData.name)
+                    setDescription(newsData.description)
+                    setPhotoUrl(newsData.photo)
+                } else {
+                    setGeneralError(data.message || "Failed to load news")
+                }
+            } catch (error) {
+                console.error("Error fetching news:", error)
+                setGeneralError("Connection error. Please try again.")
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        fetchNews()
+    }, [id])
 
     const validateForm = (): boolean => {
         setNameError("")
@@ -47,7 +84,7 @@ const NewsEditPage = () => {
     }
 
     const handleSave = async () => {
-        if (!validateForm()) return
+        if (!validateForm() || !news) return
 
         setIsSubmitting(true)
         setGeneralError("")
@@ -59,7 +96,7 @@ const NewsEditPage = () => {
                 ...(photoUrl && { attachment: { url: photoUrl } })
             }
 
-            const resp = await fetch(`${API_URL}/news/${parsed.id}`, {
+            const resp = await fetch(`${API_URL}/news/${news.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody)
@@ -68,22 +105,24 @@ const NewsEditPage = () => {
             const data = await resp.json()
 
             if (resp.ok && data.success) {
-                // Actualizar sessionStorage
+                // Actualizar sessionStorage si existe
                 const newsStr = sessionStorage.getItem("news")
-                const news: News[] = newsStr ? JSON.parse(newsStr) : []
-                const updatedNews: News = {
-                    id: parsed.id,
-                    name,
-                    description,
-                    photo: photoUrl
+                if (newsStr) {
+                    const newsList: News[] = JSON.parse(newsStr)
+                    const updatedNews: News = {
+                        id: news.id,
+                        name,
+                        description,
+                        photo: photoUrl
+                    }
+                    const actualizados = newsList.map((n) => n.id === news.id ? updatedNews : n)
+                    sessionStorage.setItem("news", JSON.stringify(actualizados))
                 }
-                const actualizados = news.map((n) => n.id === parsed.id ? updatedNews : n)
-                sessionStorage.setItem("news", JSON.stringify(actualizados))
-                // Actualizar selectedNews
-                sessionStorage.setItem("selectedNews", JSON.stringify(updatedNews))
+                
+                // Navegar de vuelta a la lista de noticias
                 navigate("/admin/news")
             } else {
-                setGeneralError(data.data || "Failed to update news")
+                setGeneralError(data.data || data.message || "Failed to update news")
             }
         } catch (error) {
             console.error("Error updating news:", error)
@@ -102,6 +141,36 @@ const NewsEditPage = () => {
 
     const handleDeleteAttachment = () => {
         setPhotoUrl("")
+    }
+
+    // Mostrar loading mientras se carga la noticia
+    if (isLoading) {
+        return (
+            <div className="NewsEdit-container">
+                <div className="NewsEdit-loading">
+                    <div className="NewsEdit-spinner"></div>
+                    <p>Loading news...</p>
+                </div>
+            </div>
+        )
+    }
+
+    // Mostrar error si no se pudo cargar la noticia
+    if (!news && !isLoading) {
+        return (
+            <div className="NewsEdit-container">
+                <div className="NewsEdit-error-container">
+                    <h2>Error</h2>
+                    <p>{generalError || "News not found"}</p>
+                    <button 
+                        className="NewsEdit-cancel-btn"
+                        onClick={() => navigate("/admin/news")}
+                    >
+                        Back to News List
+                    </button>
+                </div>
+            </div>
+        )
     }
 
     return (

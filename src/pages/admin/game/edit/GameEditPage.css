@@ -1,20 +1,163 @@
-#title {
-    text-align: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    font-size: 4rem;
+.GameEdit-container {
+    min-height: 100vh;
+    background-color: #f3f4f6;
 }
 
-#btn.addGame {
-    background-color: deepskyblue !important;
-    color: white !important;
-    border: none;
-    border-radius: 30px;
-    font-size: 2rem;
-    height: 4rem;
-    width: 100%;
-    margin: 2% 0;
-    display: block;
+.GameEdit-header {
+    background-color: #0f766e;
+    color: white;
+    padding: 2rem 0;
+}
+
+.GameEdit-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.GameEdit-title {
+    font-size: 2.5rem;
+    font-weight: bold;
     text-align: center;
-    line-height: 4rem;
+    margin: 0;
+    letter-spacing: 0.025em;
+}
+
+.GameEdit-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.GameEdit-field {
+    margin-bottom: 1.5rem;
+}
+
+.GameEdit-label {
+    display: block;
+    color: #374151;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.GameEdit-input,
+.GameEdit-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    font-size: 1.125rem;
+    transition: border-color 0.2s ease;
+}
+
+.GameEdit-textarea {
+    height: 8rem;
+    resize: none;
+}
+
+.GameEdit-input:focus,
+.GameEdit-textarea:focus {
+    outline: none;
+    border-color: #14b8a6;
+}
+
+.GameEdit-photos-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    text-align: center;
+    margin: 2rem 0 1.5rem;
+}
+
+.GameEdit-photos-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.GameEdit-photo-btn {
+    background-color: #e5e7eb;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.GameEdit-photo-btn:hover {
+    background-color: #d1d5db;
+}
+
+.GameEdit-photo-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.GameEdit-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.GameEdit-cancel-btn,
+.GameEdit-submit-btn {
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.GameEdit-cancel-btn {
+    background-color: #9ca3af;
+    color: white;
+}
+
+.GameEdit-cancel-btn:hover {
+    background-color: #6b7280;
+}
+
+.GameEdit-submit-btn {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.GameEdit-submit-btn:hover {
+    background-color: #1e40af;
+}
+
+@media (max-width: 768px) {
+    .GameEdit-title {
+        font-size: 2rem;
+    }
+
+    .GameEdit-content {
+        padding: 1rem;
+    }
+
+    .GameEdit-photos-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .GameEdit-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .GameEdit-cancel-btn,
+    .GameEdit-submit-btn {
+        width: 100%;
+        max-width: 200px;
+    }
 }

@@ -4,7 +4,7 @@ import type { juego } from "../../../../components/user/HomeJuego";
 
 const GameDetailsPage = () => {
     const navigate = useNavigate();
-    const { id } = useParams(); // <- Obtener ID desde URL
+    const { id } = useParams();
     const listaStr = sessionStorage.getItem("listaJuegos");
     let parsed: juego | undefined;
 
@@ -19,11 +19,13 @@ const GameDetailsPage = () => {
 
     if (!parsed) {
         return (
-            <div className="container mt-4">
+            <div className="GameDetails-container mt-4">
                 <p>Game not found.</p>
-                <button className="btn btnGamePage btn-secondary" onClick={() => navigate("/admin/game")}>
-                    Back to Game List
-                </button>
+                <div className="GameDetails-actions">
+                    <button className="GameDetails-back-btn" onClick={() => navigate("/admin/game")}>
+                        Back to Game List
+                    </button>
+                </div>
             </div>
         );
     }
@@ -35,71 +37,98 @@ const GameDetailsPage = () => {
     const totalSells = parsed.sells.reduce((sum, s) => sum + s.amount, 0);
 
     return (
-        <div className="container mt-4">
-            <div className="card p-4">
-                <h1 id="title">{parsed.name}</h1>
-                <p><strong>Company:</strong> {parsed.company}</p>
-                <p><strong>Category:</strong> {parsed.category.name}</p>
-                <p><strong>Platforms:</strong> {parsed.plataformas}</p>
-                <p><strong>Price:</strong> ${parsed.price}</p>
-                <p><strong>Total Sells:</strong> {totalSells}</p>
-                <p><strong>Average Rating:</strong> {averageRating}</p>
-
-                <div className="mt-3">
-                    <p><strong>Description:</strong></p>
-                    <p className="border p-3">{parsed.description || "No description provided."}</p>
+        <div className="GameDetails-container">
+            <div className="GameDetails-header">
+                <div className="GameDetails-header-content">
+                    <h1 className="GameDetails-title">{parsed.name}</h1>
                 </div>
-
+            </div>
+            <div className="GameDetails-content">
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Company:</label>
+                    <div className="GameDetails-value">{parsed.company}</div>
+                </div>
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Category:</label>
+                    <div className="GameDetails-value">{parsed.category.name}</div>
+                </div>
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Platforms:</label>
+                    <div className="GameDetails-value">{parsed.plataformas}</div>
+                </div>
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Price:</label>
+                    <div className="GameDetails-value">${parsed.price}</div>
+                </div>
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Total Sells:</label>
+                    <div className="GameDetails-value">{totalSells}</div>
+                </div>
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Average Rating:</label>
+                    <div className="GameDetails-value">{averageRating}</div>
+                </div>
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Description:</label>
+                    <div className="GameDetails-description">
+                        {parsed.description || "No description provided."}
+                    </div>
+                </div>
                 {parsed.attachment?.url && (
-                    <div className="mt-3">
-                        <p><strong>Attachment:</strong></p>
-                        <a href={parsed.attachment.url} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary">
+                    <div className="GameDetails-field">
+                        <label className="GameDetails-label">Attachment:</label>
+                        <a
+                            href={parsed.attachment.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="GameDetails-value"
+                            style={{ display: "inline-block", color: "#2563eb", textDecoration: "underline" }}
+                        >
                             View / Download Attachment
                         </a>
                     </div>
                 )}
-
-                <h4 className="text-center mt-4">Gallery</h4>
-                <div className="d-flex justify-content-around flex-wrap mb-3">
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Gallery:</label>
                     {parsed.images?.length ? (
-                        parsed.images.map((img, i) => (
-                            <div key={i} className="d-flex flex-column align-items-center">
+                        <div className="GameDetails-gallery">
+                            {parsed.images.map((img, i) => (
                                 <img
+                                    key={i}
                                     src={img.url}
                                     alt={`Game Image ${i + 1}`}
-                                    className="photo border m-2"
-                                    style={{ width: "200px", height: "auto", objectFit: "cover" }}
+                                    className="GameDetails-photo"
                                 />
-                            </div>
-                        ))
+                            ))}
+                        </div>
                     ) : (
-                        <p className="text-muted">No photos available.</p>
+                        <div className="GameDetails-no-content">No photos available.</div>
                     )}
                 </div>
-
-                <h4 className="text-center">Trailers</h4>
-                <div className="d-flex justify-content-around flex-wrap mb-3">
+                <div className="GameDetails-field">
+                    <label className="GameDetails-label">Trailers:</label>
                     {parsed.trailers?.length ? (
-                        parsed.trailers.map((trailer, i) => (
-                            <div key={i} className="text-center m-2">
-                                <p>Trailer {i + 1}</p>
-                                <iframe
-                                    src={trailer.url}
-                                    width="300"
-                                    height="180"
-                                    frameBorder="0"
-                                    allowFullScreen
-                                    title={`Trailer ${i + 1}`}
-                                />
-                            </div>
-                        ))
+                        <div className="GameDetails-trailers">
+                            {parsed.trailers.map((t, i) => (
+                                <div key={i} className="GameDetails-trailer">
+                                    <p>Trailer {i + 1}</p>
+                                    <iframe
+                                        src={t.url}
+                                        width="300"
+                                        height="180"
+                                        frameBorder="0"
+                                        allowFullScreen
+                                        title={`Trailer ${i + 1}`}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     ) : (
-                        <p className="text-muted">No trailers available.</p>
+                        <div className="GameDetails-no-content">No trailers available.</div>
                     )}
                 </div>
-
-                <div className="d-flex justify-content-end">
-                    <button className="btn btnGamePage btn-secondary" onClick={() => navigate("/admin/game")}>
+                <div className="GameDetails-actions">
+                    <button className="GameDetails-back-btn" onClick={() => navigate("/admin/game")}>
                         Back to Game List
                     </button>
                 </div>

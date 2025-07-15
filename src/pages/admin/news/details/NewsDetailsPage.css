@@ -1,0 +1,251 @@
+.NewsDetails-container {
+    min-height: 100vh;
+    background-color: #e5e7eb;
+}
+
+.NewsDetails-header {
+    background-color: #0f766e;
+    color: white;
+    padding: 2rem 0;
+}
+
+.NewsDetails-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.NewsDetails-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.025em;
+    margin: 0;
+}
+
+.NewsDetails-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.NewsDetails-field {
+    margin-bottom: 1.5rem;
+}
+
+.NewsDetails-label {
+    display: block;
+    color: #374151;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.NewsDetails-value {
+    background-color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    font-size: 1.125rem;
+    color: #374151;
+}
+
+.NewsDetails-photo-list {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    color: #374151;
+}
+
+.NewsDetails-photo-item {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.NewsDetails-no-photos {
+    font-size: 1rem;
+    color: #6b7280;
+}
+
+.NewsDetails-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.NewsDetails-cancel-btn {
+    padding: 0.75rem 2rem;
+    background-color: #60a5fa;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.NewsDetails-cancel-btn:hover {
+    background-color: #3b82f6;
+}
+
+.NewsDetails-cancel-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .NewsDetails-title {
+        font-size: 2rem;
+    }
+    
+    .NewsDetails-content {
+        padding: 1rem;
+    }
+    
+    .NewsDetails-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .NewsDetails-cancel-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+.GameDetails-container {
+    min-height: 100vh;
+    background-color: #e5e7eb;
+}
+
+.GameDetails-header {
+    background-color: #0f766e;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.GameDetails-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 0.025em;
+    margin: 0;
+}
+
+.GameDetails-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.GameDetails-field {
+    margin-bottom: 1.5rem;
+}
+
+.GameDetails-label {
+    display: block;
+    color: #374151;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.GameDetails-value {
+    background-color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    font-size: 1.125rem;
+    color: #374151;
+}
+
+.GameDetails-description {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.GameDetails-gallery,
+.GameDetails-trailers {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.GameDetails-photo {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+}
+
+.GameDetails-trailer {
+    text-align: center;
+}
+
+.GameDetails-trailer iframe {
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+}
+
+.GameDetails-no-content {
+    font-size: 1rem;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.GameDetails-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.GameDetails-back-btn {
+    padding: 0.75rem 2rem;
+    background-color: #60a5fa;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.GameDetails-back-btn:hover {
+    background-color: #3b82f6;
+}
+
+.GameDetails-back-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .GameDetails-title {
+        font-size: 2rem;
+    }
+
+    .GameDetails-content {
+        padding: 1rem;
+    }
+
+    .GameDetails-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .GameDetails-back-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}

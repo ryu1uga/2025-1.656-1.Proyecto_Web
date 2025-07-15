@@ -1,11 +1,13 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import type { juego } from "./HomeJuego";
+import "./HomeList.css";
 
 interface Propsjuegos {
   juegos: juego[];
+  promedio: (ratings: { rating: number }[]) => number;
 };
 
-const HomeList=({ juegos }: Propsjuegos)=> {
+const HomeList=({ juegos,promedio }: Propsjuegos)=> {
     const navigate = useNavigate();
 
          return (
@@ -25,8 +27,16 @@ const HomeList=({ juegos }: Propsjuegos)=> {
                     style={{ height: "140px" }}
                     src={juego.attachment?.url || "https://via.placeholder.com/140x140?text=Sin+imagen"}    
                     />
-                    <div className="card-body">
-                    <h6 className="card-title fw-bold">{juego.name}</h6>
+                    <div className="card-body text-secondary d-flex flex-column justify-content-between">
+                        <h6 className="card-title fw-bold text-center">{juego.name}</h6>
+                         <div className="d-flex justify-content-between px-1 mt-auto">
+                            <p className="card-text mb-1" style={{ fontSize: "0.8rem" }}>
+                                <strong>Ventas:</strong> {juego.sells.length}
+                            </p>
+                            <p className="card-text mb-1" style={{ fontSize: "0.8rem" }}>
+                                <strong>Rating:</strong> {promedio(juego.ratings).toFixed(1)}
+                            </p>
+                        </div>
                     </div>
                 </div>
                 ))}

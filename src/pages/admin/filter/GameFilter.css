@@ -1,0 +1,251 @@
+/* GameFilter.css */
+
+.GameFilt-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.GameFilt-header {
+  background-color: #2c5d6f;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.GameFilt-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.GameFilt-content {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  min-height: calc(100vh - 120px);
+}
+
+.GameFilt-sidebar {
+  width: 300px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.GameFilt-filter-group {
+  margin-bottom: 20px;
+}
+
+.GameFilt-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+}
+
+.GameFilt-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.GameFilt-input:focus {
+  border-color: #2c5d6f;
+}
+
+.GameFilt-select {
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 14px;
+  outline: none;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.GameFilt-select:focus {
+  border-color: #2c5d6f;
+}
+
+.GameFilt-price-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.GameFilt-price-input {
+  flex: 1;
+}
+
+.GameFilt-price-separator {
+  color: #666;
+  font-size: 14px;
+}
+
+.GameFilt-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.GameFilt-button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.GameFilt-cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.GameFilt-cancel:hover {
+  background-color: #c82333;
+}
+
+.GameFilt-filter {
+  background-color: #007bff;
+  color: white;
+}
+
+.GameFilt-filter:hover {
+  background-color: #0056b3;
+}
+
+.GameFilt-results {
+  flex: 1;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.GameFilt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.GameFilt-game-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.GameFilt-game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.GameFilt-game-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.GameFilt-game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.GameFilt-placeholder-image {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 18px;
+}
+
+.GameFilt-placeholder-image::before {
+  content: '🎮';
+  font-size: 48px;
+}
+
+.GameFilt-game-info {
+  padding: 15px;
+}
+
+.GameFilt-game-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.GameFilt-placeholder .GameFilt-game-name {
+  color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .GameFilt-content {
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .GameFilt-sidebar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .GameFilt-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .GameFilt-header h1 {
+    font-size: 2rem;
+  }
+  
+  .GameFilt-buttons {
+    flex-direction: column;
+  }
+  
+  .GameFilt-price-range {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .GameFilt-price-separator {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .GameFilt-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .GameFilt-game-image {
+    height: 150px;
+  }
+}

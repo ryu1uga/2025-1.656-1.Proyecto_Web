@@ -37,7 +37,6 @@ const MainPage = () => {
         } catch (err) {
             console.error("Logout error:", err);
         } finally {
-            // Asegura que la sesión se limpie igual, incluso si hay error
             sessionStorage.clear();
             navigate("/");
         }
@@ -54,6 +53,7 @@ const MainPage = () => {
                     <li><Link to={""} className="MainPage-Admin-boton">USERS</Link></li>
                     <li><Link to={"/admin/game"} className="MainPage-Admin-boton">GAMES</Link></li>
                     <li><Link to={"/admin/news"} className="MainPage-Admin-boton">NEWS</Link></li>
+                    <li><Link to={"/admin/search"} className="MainPage-Admin-boton">FILTERS</Link></li>
                     <li><Link to={"/"} className="MainPage-Admin-boton MainPage-Admin-logout" onClick={ handleLogout }>LOG OUT</Link></li>
                 </ul>
             </div>

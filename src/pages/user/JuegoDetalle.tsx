@@ -32,7 +32,11 @@ const JuegoDetalle = () => {
   const [selectedStars, setSelectedStars] = useState<number | null>(null);
   const [imageSources, setImageSources] = useState<string[]>([]); // Almacena las rutas de las imágenes
   
-  const [carrito, setCarrito] = useState<juego[]>([]);
+  const [carrito, setCarrito] = useState<juego[]>(() => {
+    const storedCart = sessionStorage.getItem("carrito");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
 
   const userId = Number(sessionStorage.getItem("userId"));
@@ -93,61 +97,29 @@ const JuegoDetalle = () => {
     setComments(comments.map(comment => comment.id === id ? { ...comment, dislikes: comment.dislikes + 1 } : comment));
   };
 
-  const handleBuyNow = async () => {
-    try {
-      const user = JSON.parse(localStorage.getItem("usuario") || "{}");
-      const userId = user?.id;
+  // Recuperar carrito desde sessionStorage al montar el componente
+  useEffect(() => {
+    const storedCart = sessionStorage.getItem("carrito");
+    if (storedCart) {
+      setCarrito(JSON.parse(storedCart));
+    }
+  }, []);
 
-      if (!userId) {
-        console.error("Debe iniciar sesión para añadir al carrito.");
-        return;
-      }
+  // Guardar carrito actualizado en sessionStorage cada vez que cambie
+  useEffect(() => {
+    sessionStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
 
-      // Agregar en la BD (POST /cart/add)
-      const response = await fetch(`${API_URL}/cart/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId,
-          gameId: juego.id
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.error("Juego añadido al carrito.");
-
-        // Ahora actualiza el carrito completo en backend (PUT /cart)
-        const carritoActual = JSON.parse(sessionStorage.getItem("carrito") || "[]");
-        const nuevoCarrito = [...carritoActual, juego];
-
-        await fetch(`${API_URL}/cart`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            userId,
-            games: nuevoCarrito.map(j => j.id)
-          })
-        });
-
-        sessionStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-
-      } else {
-        console.error("Error al añadir al carrito:", data);
-        console.error("No se pudo añadir al carrito.");
-      }
-
-    } catch (error) {
-      console.error("Error de red:", error);
-      console.error("Error al conectar con el servidor.");
+  const agregarAlCarrito = () => {
+    const yaExiste = carrito.some((item) => item.id === juego.id);
+    if (!yaExiste) {
+      const nuevoCarrito = [...carrito, juego];
+      setCarrito(nuevoCarrito);
+      console.log("Juego agregado al carrito");
+    } else {
+      console.log("Este juego ya está en el carrito");
     }
   };
-
 
   const averageRating = comments.length > 0
     ? (comments.reduce((acc, curr) => acc + (curr.rating || 0), 0) / comments.length).toFixed(1)
@@ -156,7 +128,7 @@ const JuegoDetalle = () => {
       : "N/A");
 
   return (
-    <div className="JuegoDetalle-background-container">
+    <div className="background-container">
       <SeccionNavbar toggleCarrito={() => setMostrarCarrito(prev => !prev)}/>
       <div className="container mt-4">
         <div className="JuegoDetalle-game-container">
@@ -209,7 +181,7 @@ const JuegoDetalle = () => {
               </div>
             </div>
             <div className="col-12 col-md-6 mb-3 d-flex align-items-stretch">
-              <button className="btn btn-primary btn-lg w-100" onClick={handleBuyNow}>COMPRAR AHORA</button>
+              <button className="btn btn-primary btn-lg w-100" onClick={agregarAlCarrito}>COMPRAR AHORA</button>
             </div>
           </div>
 

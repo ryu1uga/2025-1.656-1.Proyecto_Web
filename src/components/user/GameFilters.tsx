@@ -50,8 +50,8 @@ const GameFilters = ({ onFiltrar }: Props) => {
   const resetFiltros = () => {
     setPriceRange({ min: 0, max: 100 });
     setOfertas(false);
-    setCategorias({ accion: false, aventura: false, rpg: false, estrategia: false, deportes: false });
-    setPlataformas({ ps4: false, ps5: false, switch: false, windows: false, macos: false });
+    setCategorias({ Action_Adventure: false, RPG: false, Platformer: false, Sandbox: false, Action_RPG: false, Sports: false });
+    setPlataformas({ PS4: false, PS5: false, Switch: false, PC: false, Xbox: false });
     onFiltrar({});
   };
 

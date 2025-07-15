@@ -9,6 +9,7 @@ import HomeSlides from "../../components/user/HomeSlides"
 import HomeList from "../../components/user/HomeList"
 import CartGames from "../../components/user/CartGames"
 import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
   
@@ -20,6 +21,7 @@ const HomePage = () => {
   const busqueda = searchParams.get("busqueda")?.toLowerCase() || "";
   console.log("Buscando:", busqueda);
 
+  const location = useLocation();
   const user = JSON.parse(localStorage.getItem("usuario") || "{}");
   const userId = user?.id;
 
@@ -52,7 +54,7 @@ const HomePage = () => {
     const data = await response.json()
 
     if (Array.isArray(data.data)) {
-      setjuegos(data.data)
+      setnews(data.data)
       sessionStorage.setItem('newslist', JSON.stringify(data.data))
     } else {
       console.error("La propiedad 'data' no es un array:", data)
@@ -70,7 +72,7 @@ const HomePage = () => {
     list = JSON.parse(ListaN)
   }
 
-  const ObtenerCarritoBD = async () => {
+  /*const ObtenerCarritoBD = async () => {
     if (!userId) return;
 
     try {
@@ -87,14 +89,22 @@ const HomePage = () => {
     }
   };
   
-  useEffect(() => { ObtenerCarritoBD() }, []);
+  useEffect(() => { ObtenerCarritoBD() }, []);*/
 
   useEffect(() => {
     const carritoGuardado = sessionStorage.getItem("carrito");
     if (carritoGuardado) {
-      setCarrito(JSON.parse(carritoGuardado));
+      const carritoActual = JSON.parse(carritoGuardado);
+      if (JSON.stringify(carritoActual) !== JSON.stringify(carrito)) {
+        setCarrito(carritoActual);
+      }
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
+  useEffect(() => {
+    sessionStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
   
   const ordenarPorVentas = async () => {
     try {
@@ -117,7 +127,7 @@ const HomePage = () => {
   
 
   const promedio = (ratings: { rating: number }[]) => 
-  ratings.reduce((sum, r) => sum + r.rating, 0) / (ratings.length || 1)
+    ratings.reduce((sum, r) => sum + r.rating, 0) / (ratings.length || 1)
 
   const ordenarPorValoracion = async() => {
     try {
@@ -163,6 +173,7 @@ const HomePage = () => {
               juegos={busqueda
                 ? juegos.filter(j => j.name.toLowerCase().includes(busqueda))
                 : juegos}
+              promedio={promedio}
             />
             {mostrarCarrito && <CartGames data={carrito} actualizarCarrito={setCarrito}/>}
           </div>

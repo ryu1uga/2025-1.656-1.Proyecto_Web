@@ -1,0 +1,52 @@
+#HomeList {
+  margin-top: 2rem;
+}
+
+#HomeListTablaJuegos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+#HomeList .card {
+  width: 11rem;
+  height: 21rem; /* Aumentado para permitir más contenido */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#HomeList .card:hover {
+  transform: scale(1.03);
+}
+
+#HomeList .card-img-top {
+  height: 140px;
+  width: 100%;
+  background-color: #000;
+  object-fit: contain;
+}
+
+
+
+#HomeList .card-title {
+  font-weight: bold;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  white-space: normal; /* permite que el texto se divida en varias líneas */
+  line-height: 1.2;
+}
+
+#HomeList .card-body .card-text {
+  font-size: 0.8rem;
+  margin: 0;
+  white-space: nowrap;
+}

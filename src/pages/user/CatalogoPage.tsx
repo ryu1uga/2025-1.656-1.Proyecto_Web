@@ -3,6 +3,7 @@ import HomeList from "../../components/user/HomeList";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../main";
 import { useSearchParams } from "react-router-dom";
+import { promedio } from "../../utils/promedio";
 import "./CatalogoPage.css";
 
 const Catalogo = () => {
@@ -42,7 +43,7 @@ const Catalogo = () => {
         <GameFilters onFiltrar={setFiltros} />
       </div>
       <div className="resultados">
-        <HomeList juegos={juegos} />
+        <HomeList juegos={juegos} promedio={promedio}/>
         {juegos.length === 0 && (
           <p className="mt-3 text-center text-muted">
             No se encontraron juegos con los filtros aplicados.

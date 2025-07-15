@@ -45,11 +45,31 @@ const NewPage = () => {
         fetchNews();
     }, []);
 
-    const deleteNews = (id: number) => {
-        const actualizadas = news.filter(newsItem => newsItem.id !== id);
-        setNews(actualizadas);
-        sessionStorage.setItem("news", JSON.stringify(actualizadas));
-    };
+const deleteNews = async (id: number) => {
+    try {
+        const resp = await fetch(`${API_URL}/news/${id}`, {
+            method: "DELETE"
+        });
+
+        if (!resp.ok) {
+            const text = await resp.text();
+            console.error("Error deleting news:", text);
+            return;
+        }
+
+        const data = await resp.json();
+        if (data.success) {
+            const actualizadas = news.filter(newsItem => newsItem.id !== id);
+            setNews(actualizadas);
+            sessionStorage.setItem("news", JSON.stringify(actualizadas));
+        } else {
+            console.error("Delete failed:", data.data);
+        }
+    } catch (error) {
+        console.error("Error deleting news:", error);
+    }
+};
+
 
     return (
         <div className="NewPage-container">
@@ -86,7 +106,7 @@ const NewPage = () => {
                                     </div>
                                     <div className="NewPage-actions">
                                         <Link
-                                            to="/admin/news/details"
+                                            to={`/admin/news/details/${newsItem.id}`}
                                             className="NewPage-action-button NewPage-details-button"
                                             onClick={() => sessionStorage.setItem("selectedNews", JSON.stringify(newsItem))}
                                         >
