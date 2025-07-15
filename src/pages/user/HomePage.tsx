@@ -37,15 +37,6 @@ const HomePage = () => {
   }
   
   useEffect(() => {ObtenerJuegos()}, [])
-  
-  const ListaJ = sessionStorage.getItem("listaJuegos")
-
-  let lista: juego[]
-  if (ListaJ == null) {
-    lista = []
-  } else {
-    lista = JSON.parse(ListaJ)
-  }
 
   const ObetenerNews = async() =>{
     const response = await fetch(`${API_URL}/news`)

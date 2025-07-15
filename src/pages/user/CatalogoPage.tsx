@@ -6,9 +6,17 @@ import { useSearchParams } from "react-router-dom";
 import { promedio } from "../../utils/promedio";
 import "./CatalogoPage.css";
 
+interface Filtros {
+  priceMin?: string;
+  priceMax?: string;
+  ofertas?: boolean;
+  categorias?: string[];
+  plataformas?: string[];
+}
+
 const Catalogo = () => {
   const [juegos, setJuegos] = useState([]);
-  const [filtros, setFiltros] = useState({});
+  const [filtros, setFiltros] = useState<Filtros>({});
   const [searchParams] = useSearchParams();
   const busqueda = searchParams.get("busqueda")?.toLowerCase() || "";
 
@@ -20,9 +28,9 @@ const Catalogo = () => {
       if (filtros.priceMax !== undefined) query.append("precioMax", filtros.priceMax);
       if (filtros.ofertas) query.append("ofertas", "true");
       if (filtros.categorias?.length)
-        filtros.categorias.forEach(c => query.append("categorias", c));
+        filtros.categorias?.forEach((c: string) => query.append("categorias", c));
       if (filtros.plataformas?.length)
-        filtros.plataformas.forEach(p => query.append("plataformas", p));
+        filtros.plataformas?.forEach((p: string) => query.append("plataformas", p));
       if (busqueda) query.append("busqueda", busqueda);
 
       try {
